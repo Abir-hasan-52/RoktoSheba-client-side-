@@ -4,6 +4,9 @@ import Home from "../Pages/Home/Home/Home";
 import About from "../Pages/About/About";
 import DonationRequests from "../Pages/DonationRequests/DonationRequests";
 import Blog from "../Pages/Blog/Blog";
+import AuthLayOut from "../Layouts/AuthLayout";
+import Login from "../Pages/Login/Login";
+import Register from "../Pages/Register/Register";
 
 export const router = createBrowserRouter([
   {
@@ -27,5 +30,19 @@ export const router = createBrowserRouter([
         Component: Blog,
       },
     ],
+  },
+  {
+    path: "/",
+    Component: AuthLayOut,
+    children:[
+        {
+            path:'/login',
+            Component:Login,
+        },
+        {
+            path:"/register",
+            Component:Register,
+        }
+    ]
   },
 ]);
