@@ -1,89 +1,95 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { Link, useLocation, useNavigate } from "react-router";
- 
-// import useAuth from "../../../Hooks/useAuth";
+import { Link, useNavigate } from "react-router";
+import Swal from "sweetalert2";
 
 const Login = () => {
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-//   const { signInUser } = useAuth();
-//   const location = useLocation();
-//   const navigate = useNavigate();
-//   const from = location.state?.from || "/";
 
-  const onSubmit = (data) => {
-    console.log(data);
-    // signInUser(data.email, data.password)
-    //   .then((result) => {
-    //     console.log(result.user);
-    //     navigate(from);
-    //   })
-    //   .catch((error) => {
-    //     console.log(error.message);
-    //   });
+  const onSubmit = async (data) => {
+    // You can replace this with Firebase or JWT login call
+    console.log("Login Data:", data);
+
+    // Example success feedback
+    Swal.fire({
+      icon: "success",
+      title: "Login Successful",
+      text: `Welcome back, ${data.email}`,
+    });
+
+    // Navigate to dashboard or home
+    navigate("/");
   };
+
   return (
-    <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
-      <div className="card-body">
-        <h1 className="text-4xl font-extrabold">Welcome Back</h1>
-        <p className="text-md font-semibold">Login with RoktoSheba</p>
+    <div className="w-full max-w-md mx-auto p-6 bg-white shadow-md rounded-lg">
+      <h2 className="text-2xl font-bold text-center mb-6 text-red-600">
+        Login
+      </h2>
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+        {/* Email */}
+        <div>
+          <label className="block font-medium mb-1">Email Address</label>
+          <input
+            type="email"
+            {...register("email", { required: "Email is required" })}
+            placeholder="you@example.com"
+            className={`w-full border rounded-md px-4 py-2 focus:outline-none focus:ring-2 resize-none ${
+              errors.email
+                ? "border-red-500 focus:ring-red-500"
+                : "border-gray-300 focus:ring-red-500"
+            }`}
+          />
+          {errors.email && (
+            <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>
+          )}
+        </div>
 
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <fieldset className="fieldset">
-            {/* Email */}
-            <label className="label">Email</label>
-            <input
-              type="email"
-              {...register("email", { required: true })}
-              className="input"
-              placeholder="Email"
-            />
-            {errors.email?.type === "required" && (
-              <p className="text-red-600 text-sm">Email is required</p>
-            )}
-
-            {/* Password */}
-            <label className="label">Password</label>
-            <input
-              type="password"
-              {...register("password", { required: true, minLength: 6 })}
-              className="input"
-              placeholder="Password"
-            />
-            {errors.password?.type === "required" && (
-              <p className="text-red-500 text-sm">Password is required</p>
-            )}
-            {errors.password?.type === "minLength" && (
-              <p className="text-red-500 text-sm">
-                Password must be at least 6 characters
-              </p>
-            )}
-
-            {/* Forgot password link */}
-            <div>
-              <a className="link link-hover">Forgot password?</a>
-            </div>
-            <button type="submit" className="btn  bg-[#CAEB66] mt-4">
-              Login
-            </button>
-          </fieldset>
-          <div>
-            <p className="link link-hover text-md">
-              <strong>
-                Don’t have any account?
-                <Link className="text-yellow-500 underline" to="/register">
-                  Register
-                </Link>
-              </strong>
+        {/* Password */}
+        <div>
+          <label className="block font-medium mb-1">Password</label>
+          <input
+            type="password"
+            {...register("password", { required: "Password is required" })}
+            placeholder="Your password"
+            className={`w-full border rounded-md px-4 py-2 focus:outline-none focus:ring-2 resize-none ${
+              errors.password
+                ? "border-red-500 focus:ring-red-500"
+                : "border-gray-300 focus:ring-red-500"
+            }`}
+          />
+          {errors.password && (
+            <p className="text-red-500 text-sm mt-1">
+              {errors.password.message}
             </p>
-          </div>
-        </form>
- 
-      </div>
+          )}
+        </div>
+
+        {/* Submit Button */}
+        <button
+          type="submit"
+          className="w-full bg-red-600 hover:bg-red-700 text-white font-semibold py-2 rounded-md transition duration-200"
+        >
+          Login
+        </button>
+
+        {/* Link to Register */}
+        <p className="text-center text-sm mt-4">
+          Don’t have an account?{" "}
+          <Link
+            to="/register"
+            className="text-red-500 font-semibold hover:underline"
+          >
+            Register
+          </Link>
+        </p>
+      </form>
     </div>
   );
 };
