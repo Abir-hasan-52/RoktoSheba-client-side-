@@ -7,6 +7,11 @@ import Blog from "../Pages/Blog/Blog";
 import AuthLayOut from "../Layouts/AuthLayout";
 import Login from "../Pages/Login/Login";
 import Register from "../Pages/Register/Register";
+import DashboardLayOut from "../Layouts/DashboardLayOut";
+import MyDonationRequests from "../Pages/Dashboard/MyDonation/MyDonation";
+import CreateDonationRequest from "../Pages/Dashboard/CreateDonation/CreateDonation";
+import MyDonation from "../Pages/Dashboard/MyDonation/MyDonation";
+import CreateDonation from "../Pages/Dashboard/CreateDonation/CreateDonation";
 
 export const router = createBrowserRouter([
   {
@@ -21,10 +26,7 @@ export const router = createBrowserRouter([
         path: "/about",
         Component: About,
       },
-      {
-        path: "/donationRequests",
-        Component: DonationRequests,
-      },
+
       {
         path: "/blogs",
         Component: Blog,
@@ -34,15 +36,29 @@ export const router = createBrowserRouter([
   {
     path: "/",
     Component: AuthLayOut,
-    children:[
-        {
-            path:'/login',
-            Component:Login,
-        },
-        {
-            path:"/register",
-            Component:Register,
-        }
-    ]
+    children: [
+      {
+        path: "/login",
+        Component: Login,
+      },
+      {
+        path: "/register",
+        Component: Register,
+      },
+    ],
+  },
+  {
+    path: "/dashboard",
+    Component: DashboardLayOut,
+    children: [
+      {
+        path: "myDonation",
+        Component:  MyDonation,
+      },
+      {
+        path: "createDonation",
+        Component:  CreateDonation,
+      },
+    ],
   },
 ]);
