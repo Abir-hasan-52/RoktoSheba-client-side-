@@ -4,6 +4,7 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import useAuth from "../../Hooks/useAuth";
 import useAxios from "../../Hooks/useAxios";
+import { Link } from "react-router";
 
 const Register = () => {
   const {
@@ -45,7 +46,7 @@ const Register = () => {
 
   // Submit handler
   const onSubmit = (data) => {
-    const { name, email,password, blood_group, district, upazila } = data;
+    const { name, email, password, blood_group, district, upazila } = data;
     console.log("🧾 Form Data:", data);
 
     if (!profilePic) {
@@ -53,9 +54,9 @@ const Register = () => {
       return;
     }
     //  Find district name using ID
-    const selectedDistrict = districts.find(d => d.id === district);
-  const districtName = selectedDistrict ? selectedDistrict.name : "";
-    createUser(email,password)
+    const selectedDistrict = districts.find((d) => d.id === district);
+    const districtName = selectedDistrict ? selectedDistrict.name : "";
+    createUser(email, password)
       .then(async (result) => {
         console.log("✅ Firebase user created:", result.user);
 
@@ -65,42 +66,37 @@ const Register = () => {
           photoURL: profilePic,
         };
 
-         
-          await updateUserProfile(userProfile)
-          .then(()=>{
+        await updateUserProfile(userProfile)
+          .then(() => {
             console.log("✅ Firebase profile updated with avatar and name");
           })
-          .catch(error=>{
-            console.log(error)
-          })
-           
-
+          .catch((error) => {
+            console.log(error);
+          });
 
         //   ⛳ Save user to MongoDB
-          const userInfo = {
-            name,
-            email,
-            avatar: profilePic,
-            blood_group,
-            district:districtName,
-            upazila,
-            role: "donor", // default
-            status: "active",
-            created_at: new Date().toISOString(),
-            
-          };
+        const userInfo = {
+          name,
+          email,
+          avatar: profilePic,
+          blood_group,
+          district: districtName,
+          upazila,
+          role: "donor", // default
+          status: "active",
+          created_at: new Date().toISOString(),
+        };
 
-          console.log("📦 Sending user to MongoDB:", userInfo);
+        console.log("📦 Sending user to MongoDB:", userInfo);
 
-          const userRes = await axiosInstance.post("/users", userInfo);
-          console.log("✅ MongoDB response:", userRes.data);
+        const userRes = await axiosInstance.post("/users", userInfo);
+        console.log("✅ MongoDB response:", userRes.data);
 
-          Swal.fire(
-            "Success!",
-            `${name}, your account has been created.`,
-            "success"
-          );
-        
+        Swal.fire(
+          "Success!",
+          `${name}, your account has been created.`,
+          "success"
+        );
       })
       .catch((err) => {
         console.error("❌ Firebase createUser error:", err);
@@ -115,15 +111,16 @@ const Register = () => {
     const formData = new FormData();
     formData.append("image", image);
 
-    const imageUploadUrl = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_imgbb_key}`;
+    const imageUploadUrl = `https://api.imgbb.com/1/upload?key=${
+      import.meta.env.VITE_imgbb_key
+    }`;
 
     try {
       const res = await axios.post(imageUploadUrl, formData);
-      console.log(res.data)
+      console.log(res.data);
       const url = res.data.data.url;
       setProfilePic(url);
       console.log("🖼️ Image uploaded to imgBB:", url);
-      
     } catch (err) {
       console.error("❌ Image upload error:", err);
       Swal.fire("Error", "Image upload failed", "error");
@@ -277,6 +274,16 @@ const Register = () => {
           >
             Register
           </button>
+          {/* Link to Register */}
+          <p className="text-center text-sm mt-10">
+            Already have an account?
+            <Link
+              to="/login"
+              className="text-red-500 font-semibold hover:underline"
+            >
+              Login
+            </Link>
+          </p>
         </div>
       </form>
     </div>

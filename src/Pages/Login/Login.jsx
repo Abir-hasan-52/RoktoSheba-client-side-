@@ -2,8 +2,10 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router";
 import Swal from "sweetalert2";
+import useAuth from "../../Hooks/useAuth";
 
 const Login = () => {
+    const {signInUser}=useAuth()
   const navigate = useNavigate();
 
   const {
@@ -16,15 +18,28 @@ const Login = () => {
     // You can replace this with Firebase or JWT login call
     console.log("Login Data:", data);
 
-    // Example success feedback
-    Swal.fire({
-      icon: "success",
-      title: "Login Successful",
-      text: `Welcome back, ${data.email}`,
-    });
+    signInUser(data.email, data.password)
+      .then(result => {
+        console.log(result);
+        // Example success feedback
+        Swal.fire({
+          icon: "success",
+          title: "Login Successful",
+          text: `Welcome back, ${data.email}`,
+        });
+        // Navigate to dashboard or home
+        navigate("/");
+      })
+      .catch(error => {
+        console.log(error.message);
+        Swal.fire({
+          icon: "error",
+          title: "Login Failed",
+          text: error.message,
+        });
+      });
 
-    // Navigate to dashboard or home
-    navigate("/");
+     
   };
 
   return (

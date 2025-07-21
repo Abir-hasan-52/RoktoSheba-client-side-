@@ -2,8 +2,10 @@ import React from "react";
 import { Link, NavLink } from "react-router";
 import RoktoShebaLogo from "../RoktoShebaLogo";
 import Button from "../Button/Button";
+import useAuth from "../../../Hooks/useAuth";
 
 const Navbar = () => {
+  const { user, logOutUser } = useAuth();
   const links = (
     <>
       <li>
@@ -23,7 +25,17 @@ const Navbar = () => {
             isActive ? "text-red-600 font-bold" : "text-gray-600"
           }
         >
-          Donation Requests 
+          Donation Requests
+        </NavLink>
+      </li>
+      <li>
+        <NavLink
+          to="/donationRequests"
+          className={({ isActive }) =>
+            isActive ? "text-red-600 font-bold" : "text-gray-600"
+          }
+        >
+          DashBoard
         </NavLink>
       </li>
       <li>
@@ -33,11 +45,19 @@ const Navbar = () => {
             isActive ? "text-red-600 font-bold" : "text-gray-600"
           }
         >
-          Blog 
+          Blog
         </NavLink>
       </li>
     </>
   );
+
+  const handleLogout = () => {
+    logOutUser()
+      .then((result) => {
+        console.log(result);
+      })
+      .catch((error) => console.log(error));
+  };
 
   return (
     <div className="navbar bg-base-100 shadow-sm">
@@ -76,7 +96,15 @@ const Navbar = () => {
         <ul className="menu menu-horizontal px-1">{links}</ul>
       </div>
       <div className="navbar-end">
-        <Button  variant="outline"> login</Button>
+        {user ? (
+          <Button onClick={handleLogout} variant="outline">
+            Logout
+          </Button>
+        ) : (
+          <Button to="/login" variant="outline">
+            Login
+          </Button>
+        )}
       </div>
     </div>
   );
