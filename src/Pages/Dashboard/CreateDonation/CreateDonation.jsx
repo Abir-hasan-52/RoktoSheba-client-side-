@@ -73,6 +73,7 @@ const CreateDonation = () => {
       donationTime: data.donationTime,
       requestMessage: data.requestMessage,
       status: "pending",
+      createdAt: new Date(),
     };
 
     try {
