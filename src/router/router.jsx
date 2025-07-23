@@ -14,6 +14,8 @@ import MyDonation from "../Pages/Dashboard/MyDonation/MyDonation";
 import CreateDonation from "../Pages/Dashboard/CreateDonation/CreateDonation";
 import AllUsers from "../Pages/Dashboard/AllUsers/Allusers";
 import AllDonation from "../Pages/Dashboard/AllDonation/AllDonation";
+import ContentManagement from "../Pages/Dashboard/ContentManagement/ContentManagement";
+import AddBlog from "../Pages/Dashboard/AddBlog/AddBlog";
 
 export const router = createBrowserRouter([
   {
@@ -55,18 +57,28 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "myDonation",
-        Component:  MyDonation,
+        Component: MyDonation,
       },
       {
         path: "createDonation",
-        Component:  CreateDonation,
+        Component: CreateDonation,
+      },
+      {
+        path: "allUsers",
+        Component: AllUsers,
+      },
+      {
+        path: "allDonation",
+        Component: AllDonation,
       },{
-        path:'allUsers',
-        Component:AllUsers,
-      },{
-        path:'allDonation',
-        Component:AllDonation,
-      }
+        path:'content-management',
+        Component:ContentManagement,
+
+      },
+      {
+        path: "content-management/add-blog",
+        Component:AddBlog,
+      },
     ],
   },
 ]);

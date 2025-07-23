@@ -83,6 +83,16 @@ const DashboardLayOut = () => {
               <FaMoneyCheckAlt className="inline-block mr-1" />  All Donation
             </NavLink>
           </li>
+          <li>
+            <NavLink to="/dashboard/content-management">
+              <FaMoneyCheckAlt className="inline-block mr-1" />  content-management
+            </NavLink>
+          </li>
+          {/* <li>
+            <NavLink to="/dashboard/add-blog">
+              <FaMoneyCheckAlt className="inline-block mr-1" />  add-blog
+            </NavLink>
+          </li> */}
         </ul>
       </div>
     </div>
