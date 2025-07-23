@@ -1,11 +1,12 @@
 import React from "react";
-import { Link, NavLink } from "react-router";
+import { Link, NavLink, useNavigate } from "react-router";
 import RoktoShebaLogo from "../RoktoShebaLogo";
 import Button from "../Button/Button";
 import useAuth from "../../../Hooks/useAuth";
 
 const Navbar = () => {
   const { user, logOutUser } = useAuth();
+    const navigate = useNavigate();
   const links = (
     <>
       <li>
@@ -97,11 +98,28 @@ const Navbar = () => {
       </div>
       <div className="navbar-end">
         {user ? (
-          <Button onClick={handleLogout} variant="outline">
-            Logout
-          </Button>
+          <>
+            <div className="tooltip tooltip-bottom" data-tip={user.displayName}>
+              <img
+                src={user.photoURL}
+                alt="User Avatar"
+                className="w-10 h-10 mr-3 rounded-full border-2 border-red-500 hover:scale-105 transition"
+              />
+            </div>
+            <Button
+              onClick={handleLogout}
+              variant="outline"
+              className="hover:bg-red-100 transition"
+            >
+              Logout
+            </Button>
+          </>
         ) : (
-          <Button to="/login" variant="outline">
+          <Button
+            onClick={() => navigate("/login")}
+            variant="outline"
+            className="hover:bg-red-100 transition"
+          >
             Login
           </Button>
         )}

@@ -78,6 +78,11 @@ const DashboardLayOut = () => {
               <FaMoneyCheckAlt className="inline-block mr-1" />  All User
             </NavLink>
           </li>
+          <li>
+            <NavLink to="/dashboard/allDonation">
+              <FaMoneyCheckAlt className="inline-block mr-1" />  All Donation
+            </NavLink>
+          </li>
         </ul>
       </div>
     </div>
