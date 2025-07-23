@@ -57,8 +57,8 @@ const DashboardLayOut = () => {
           <RoktoShebaLogo />
 
           <li>
-            <Link to="/">
-              <AiFillHome className="inline-block mr-1" /> Home
+            <Link to="/dashboard">
+              <AiFillHome className="inline-block mr-1" /> AdminDashboardHome
             </Link>
           </li>
 
