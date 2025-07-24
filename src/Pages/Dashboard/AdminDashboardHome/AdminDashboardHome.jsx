@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { FaUsers, FaTint } from "react-icons/fa";
+import { FaUsers, FaTint, FaMoneyCheckAlt } from "react-icons/fa";
 import useAuth from "../../../Hooks/useAuth";
 import Welcome from "../../Shared/Welcome/Welcome";
 import useAxios from "../../../Hooks/useAxios";
@@ -17,23 +17,23 @@ const AdminDashboardHome = () => {
       })
       .catch((err) => {
         console.error("Failed to fetch dashboard stats", err);
-        // fallback dummy data if API fails or no data
+        // fallback dummy data if API fails
         setStats({
           totalDonors: 120,
           totalRequests: 350,
+          totalFunding: 50000,
           previousMonthDonors: null,
           previousMonthRequests: null,
+          previousMonthFunding: null,
         });
       });
   }, [axiosInstance]);
 
-  // Dummy function to generate random percentage change between -15% and +15%
   const randomChange = () => {
     const value = (Math.random() * 30 - 15).toFixed(1);
     return Number(value);
   };
 
-  // Calculate percentage change or generate dummy value
   const calculatePercentageChange = (current, previous) => {
     if (previous == null || previous === 0) {
       return randomChange();
@@ -67,6 +67,16 @@ const AdminDashboardHome = () => {
       ),
       icon: <FaTint className="text-4xl text-red-600" />,
       bg: "bg-red-50 border border-red-200",
+    },
+    {
+      title: "Total Funding (৳)",
+      count: stats.totalFunding,
+      change: calculatePercentageChange(
+        stats.totalFunding,
+        stats.previousMonthFunding
+      ),
+      icon: <FaMoneyCheckAlt className="text-4xl text-green-600" />,
+      bg: "bg-green-50 border border-green-200",
     },
   ];
 
@@ -102,7 +112,7 @@ const AdminDashboardHome = () => {
                   >
                     {card.change >= 0 ? "▲" : "▼"} {Math.abs(card.change)}%
                   </span>{" "}
-                  from last month  
+                  from last month
                 </p>
               </div>
             </div>

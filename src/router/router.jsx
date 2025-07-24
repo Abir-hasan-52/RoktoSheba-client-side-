@@ -19,6 +19,7 @@ import AddBlog from "../Pages/Dashboard/AddBlog/AddBlog";
 import AdminDashboardHome from "../Pages/Dashboard/AdminDashboardHome/AdminDashboardHome";
 import Funding from "../Pages/Dashboard/Funding/Funding";
 import MainFunding from "../Pages/Dashboard/Funding/MainFunding";
+import PrivateRoute from "../route/PrivateRoute";
 
 export const router = createBrowserRouter([
   {
@@ -56,12 +57,17 @@ export const router = createBrowserRouter([
   },
   {
     path: "/dashboard",
-    Component: DashboardLayOut,
+    element: (
+      <PrivateRoute>
+        {" "}
+        <DashboardLayOut></DashboardLayOut>
+      </PrivateRoute>
+    ),
     children: [
-        {
-            index:true,
-            element:<AdminDashboardHome></AdminDashboardHome>
-        },
+      {
+        index: true,
+        element: <AdminDashboardHome></AdminDashboardHome>,
+      },
       {
         path: "myDonation",
         Component: MyDonation,
@@ -77,19 +83,19 @@ export const router = createBrowserRouter([
       {
         path: "allDonation",
         Component: AllDonation,
-      },{
-        path:'content-management',
-        Component:ContentManagement,
-
+      },
+      {
+        path: "content-management",
+        Component: ContentManagement,
       },
       {
         path: "funding",
-         Component:Funding,
+        Component: Funding,
       },
       {
-        path: 'mainFunding',
-        Component:MainFunding,
-      }
+        path: "mainFunding",
+        Component: MainFunding,
+      },
     ],
   },
 ]);

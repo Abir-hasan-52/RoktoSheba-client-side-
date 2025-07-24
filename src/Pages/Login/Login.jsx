@@ -1,11 +1,13 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import Swal from "sweetalert2";
 import useAuth from "../../Hooks/useAuth";
 
 const Login = () => {
     const {signInUser}=useAuth()
+    const location = useLocation();
+    const from=location.state?.from ||'/';
   const navigate = useNavigate();
 
   const {
@@ -28,7 +30,7 @@ const Login = () => {
           text: `Welcome back, ${data.email}`,
         });
         // Navigate to dashboard or home
-        navigate("/");
+        navigate(from);
       })
       .catch(error => {
         console.log(error.message);
