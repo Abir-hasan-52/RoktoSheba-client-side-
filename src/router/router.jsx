@@ -18,6 +18,7 @@ import ContentManagement from "../Pages/Dashboard/ContentManagement/ContentManag
 import AddBlog from "../Pages/Dashboard/AddBlog/AddBlog";
 import AdminDashboardHome from "../Pages/Dashboard/AdminDashboardHome/AdminDashboardHome";
 import Funding from "../Pages/Dashboard/Funding/Funding";
+import MainFunding from "../Pages/Dashboard/Funding/MainFunding";
 
 export const router = createBrowserRouter([
   {
@@ -85,6 +86,10 @@ export const router = createBrowserRouter([
         path: "funding",
          Component:Funding,
       },
+      {
+        path: 'mainFunding',
+        Component:MainFunding,
+      }
     ],
   },
 ]);
