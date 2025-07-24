@@ -7,10 +7,13 @@ import {
   FaUserEdit,
   FaUserCheck,
   FaUserClock,
+  FaHandsHelping,
+  FaDonate,
 } from "react-icons/fa";
-import { MdLocalShipping } from "react-icons/md";
+import { MdLocalShipping, MdOutlineManageAccounts } from "react-icons/md";
 import { AiFillHome } from "react-icons/ai";
 import RoktoShebaLogo from "../Pages/Shared/RoktoShebaLogo";
+import { FaHandHoldingMedical, FaNotesMedical, FaUsers } from "react-icons/fa6";
 
 const DashboardLayOut = () => {
   return (
@@ -40,7 +43,10 @@ const DashboardLayOut = () => {
               </svg>
             </label>
           </div>
-          <div className="mx-2 lg:hidden flex-1 px-2">DashBoard</div>
+          <div className="mx-2 lg:hidden flex-1 px-2">
+            {" "}
+            <RoktoShebaLogo />
+          </div>
         </div>
         {/* Page content here */}
         <Outlet></Outlet>
@@ -52,47 +58,111 @@ const DashboardLayOut = () => {
           aria-label="close sidebar"
           className="drawer-overlay"
         ></label>
-        <ul className="menu bg-base-200 text-base-content min-h-full w-80 p-4">
-          {/* Sidebar content here */}
-          <RoktoShebaLogo />
+        <ul className="menu bg-red-50 text-red-900 min-h-full w-80 p-4 font-medium">
+          {/* Logo */}
+          <div className="mb-6">
+            <RoktoShebaLogo />
+          </div>
+
+          {/* Nav Items */}
+          <li>
+            <NavLink
+              to="/dashboard"
+              end
+              className={({ isActive }) =>
+                isActive
+                  ? "bg-red-200 text-red-700 font-semibold rounded"
+                  : "hover:bg-red-100 rounded"
+              }
+            >
+              <AiFillHome className="inline-block mr-2 text-lg" />
+              Dashboard Home
+            </NavLink>
+          </li>
 
           <li>
-            <Link to="/dashboard">
-              <AiFillHome className="inline-block mr-1" /> AdminDashboardHome
-            </Link>
-          </li>
-
-          <li>
-            <NavLink to="/dashboard/myDonation">
-              <FaBoxOpen className="inline-block mr-1" /> My Donation
+            <NavLink
+              to="/dashboard/myDonation"
+              className={({ isActive }) =>
+                isActive
+                  ? "bg-red-200 text-red-700 font-semibold rounded"
+                  : "hover:bg-red-100 rounded"
+              }
+            >
+              <FaHandHoldingMedical className="inline-block mr-2 text-lg" />
+              My Donation
             </NavLink>
           </li>
 
           <li>
-            <NavLink to="/dashboard/createDonation">
-              <FaMoneyCheckAlt className="inline-block mr-1" /> Create Donation
+            <NavLink
+              to="/dashboard/createDonation"
+              className={({ isActive }) =>
+                isActive
+                  ? "bg-red-200 text-red-700 font-semibold rounded"
+                  : "hover:bg-red-100 rounded"
+              }
+            >
+              <FaNotesMedical className="inline-block mr-2 text-lg" />
+              Create Donation
             </NavLink>
           </li>
+
           <li>
-            <NavLink to="/dashboard/allUsers">
-              <FaMoneyCheckAlt className="inline-block mr-1" />  All User
+            <NavLink
+              to="/dashboard/allUsers"
+              className={({ isActive }) =>
+                isActive
+                  ? "bg-red-200 text-red-700 font-semibold rounded"
+                  : "hover:bg-red-100 rounded"
+              }
+            >
+              <FaUsers className="inline-block mr-2 text-lg" />
+              All Users
             </NavLink>
           </li>
+
           <li>
-            <NavLink to="/dashboard/allDonation">
-              <FaMoneyCheckAlt className="inline-block mr-1" />  All Donation
+            <NavLink
+              to="/dashboard/allDonation"
+              className={({ isActive }) =>
+                isActive
+                  ? "bg-red-200 text-red-700 font-semibold rounded"
+                  : "hover:bg-red-100 rounded"
+              }
+            >
+              <FaHandsHelping className="inline-block mr-2 text-lg" />
+              All Donations
             </NavLink>
           </li>
+
           <li>
-            <NavLink to="/dashboard/content-management">
-              <FaMoneyCheckAlt className="inline-block mr-1" />  content-management
+            <NavLink
+              to="/dashboard/content-management"
+              className={({ isActive }) =>
+                isActive
+                  ? "bg-red-200 text-red-700 font-semibold rounded"
+                  : "hover:bg-red-100 rounded"
+              }
+            >
+              <MdOutlineManageAccounts className="inline-block mr-2 text-lg" />
+              Content Management
             </NavLink>
           </li>
-          {/* <li>
-            <NavLink to="/dashboard/add-blog">
-              <FaMoneyCheckAlt className="inline-block mr-1" />  add-blog
+
+          <li>
+            <NavLink
+              to="/dashboard/Funding"
+              className={({ isActive }) =>
+                isActive
+                  ? "bg-red-200 text-red-700 font-semibold rounded"
+                  : "hover:bg-red-100 rounded"
+              }
+            >
+              <FaDonate className="inline-block mr-2 text-lg" />
+              Funding
             </NavLink>
-          </li> */}
+          </li>
         </ul>
       </div>
     </div>

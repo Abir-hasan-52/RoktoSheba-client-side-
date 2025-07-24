@@ -17,6 +17,7 @@ import AllDonation from "../Pages/Dashboard/AllDonation/AllDonation";
 import ContentManagement from "../Pages/Dashboard/ContentManagement/ContentManagement";
 import AddBlog from "../Pages/Dashboard/AddBlog/AddBlog";
 import AdminDashboardHome from "../Pages/Dashboard/AdminDashboardHome/AdminDashboardHome";
+import Funding from "../Pages/Dashboard/Funding/Funding";
 
 export const router = createBrowserRouter([
   {
@@ -81,8 +82,8 @@ export const router = createBrowserRouter([
 
       },
       {
-        path: "content-management/add-blog",
-        Component:AddBlog,
+        path: "funding",
+         Component:Funding,
       },
     ],
   },
