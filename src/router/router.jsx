@@ -26,6 +26,7 @@ import EditDonation from "../Pages/Dashboard/EditDonation/EditDonation";
 import DonationDetails from "../Pages/Dashboard/DonationDetails/DonationDetails";
 import AddBlog from "../Pages/Dashboard/AddBlog/AddBlog";
 import DashboardHome from "../Pages/Dashboard/DashboardHome/DashboardHome";
+import ProfilePage from "../Pages/Dashboard/ProfilePage/ProfilePage";
 
 export const router = createBrowserRouter([
   {
@@ -114,6 +115,10 @@ export const router = createBrowserRouter([
       {
         path: "donation-details/:id",
         Component: DonationDetails,
+      },
+      {
+        path: "profile",
+        element: <ProfilePage></ProfilePage>,
       },
     ],
   },

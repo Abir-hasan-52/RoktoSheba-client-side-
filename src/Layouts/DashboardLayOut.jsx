@@ -192,6 +192,19 @@ const DashboardLayOut = () => {
               Funding
             </NavLink>
           </li>
+          <li>
+            <NavLink
+              to="/dashboard/profile"
+              className={({ isActive }) =>
+                isActive
+                  ? "bg-red-200 text-red-700 font-semibold rounded"
+                  : "hover:bg-red-100 rounded"
+              }
+            >
+              <FaDonate className="inline-block mr-2 text-lg" />
+              Profile
+            </NavLink>
+          </li>
         </ul>
       </div>
     </div>
