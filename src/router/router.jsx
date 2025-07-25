@@ -15,15 +15,17 @@ import CreateDonation from "../Pages/Dashboard/CreateDonation/CreateDonation";
 import AllUsers from "../Pages/Dashboard/AllUsers/Allusers";
 import AllDonation from "../Pages/Dashboard/AllDonation/AllDonation";
 import ContentManagement from "../Pages/Dashboard/ContentManagement/ContentManagement";
-import AddBlog from "../Pages/Dashboard/AddBlog/AddBlog";
+
 import AdminDashboardHome from "../Pages/Dashboard/AdminDashboardHome/AdminDashboardHome";
 import Funding from "../Pages/Dashboard/Funding/Funding";
 import MainFunding from "../Pages/Dashboard/Funding/MainFunding";
 import PrivateRoute from "../route/PrivateRoute";
 import DonorDashboardHome from "../Pages/Dashboard/DonorDashboardHome/DonorDashboardHome";
 import EditDonation from "../Pages/Dashboard/EditDonation/EditDonation";
-import DonationDetailsModal from "../Pages/Dashboard/DonationDetails/DonationDetails";
+
 import DonationDetails from "../Pages/Dashboard/DonationDetails/DonationDetails";
+import AddBlog from "../Pages/Dashboard/AddBlog/AddBlog";
+import DashboardHome from "../Pages/Dashboard/DashboardHome/DashboardHome";
 
 export const router = createBrowserRouter([
   {
@@ -68,14 +70,11 @@ export const router = createBrowserRouter([
       </PrivateRoute>
     ),
     children: [
-      //   {
-      //     index: true,
-      //     element: <AdminDashboardHome></AdminDashboardHome>,
-      //   },
       {
         index: true,
-        element: <DonorDashboardHome></DonorDashboardHome>,
+        element: <DashboardHome></DashboardHome>,
       },
+
       {
         path: "myDonation",
         Component: MyDonation,
@@ -94,7 +93,11 @@ export const router = createBrowserRouter([
       },
       {
         path: "content-management",
-        Component: ContentManagement,
+        element: <ContentManagement></ContentManagement>,
+      },
+      {
+        path: "add-blog",
+        element: <AddBlog></AddBlog>,
       },
       {
         path: "funding",
@@ -110,7 +113,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "donation-details/:id",
-        Component:  DonationDetails,
+        Component: DonationDetails,
       },
     ],
   },

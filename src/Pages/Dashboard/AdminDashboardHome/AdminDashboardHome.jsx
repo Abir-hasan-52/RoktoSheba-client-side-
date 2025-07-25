@@ -3,12 +3,13 @@ import { FaUsers, FaTint, FaMoneyCheckAlt } from "react-icons/fa";
 import useAuth from "../../../Hooks/useAuth";
 import Welcome from "../../Shared/Welcome/Welcome";
 import useAxios from "../../../Hooks/useAxios";
+import useUserRole from "../../../Hooks/useUserRole";
 
 const AdminDashboardHome = () => {
   const { user } = useAuth();
   const axiosInstance = useAxios();
   const [stats, setStats] = useState(null);
-
+  const { role } = useUserRole();
   useEffect(() => {
     axiosInstance
       .get("/dashboard-stats")
@@ -80,11 +81,24 @@ const AdminDashboardHome = () => {
     },
   ];
 
+  const getRoleMessage = (role) => {
+    switch (role) {
+      case "admin":
+        return "Welcome back, Lifeline Commander! You hold the power to organize hope, manage donors, and oversee every heartbeat of Rokto-Sheba.";
+      case "donor":
+        return "Thank you for being a true hero! Every drop you donate gives someone another chance at life. Let’s keep saving lives together.";
+      case "volunteer":
+        return "You are the bridge between life and hope. Your support keeps the blood flowing where it’s needed the most. Thank you for your selfless service.";
+      default:
+        return "Welcome to Rokto-Sheba – where every drop of blood writes a new story of life. Let’s make a difference together!";
+    }
+  };
+
   return (
     <div className="p-4 space-y-6">
       <Welcome
-        user={{ displayName: user?.displayName || "Admin", role: "admin" }}
-        customMessage="You have full access to manage the blood donation system."
+        user={{ displayName: user?.displayName, role: role }}
+        customMessage={getRoleMessage(role)}
       />
 
       <h2 className="text-2xl font-bold text-gray-800">

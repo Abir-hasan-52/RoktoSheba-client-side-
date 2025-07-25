@@ -14,8 +14,10 @@ import { MdLocalShipping, MdOutlineManageAccounts } from "react-icons/md";
 import { AiFillHome } from "react-icons/ai";
 import RoktoShebaLogo from "../Pages/Shared/RoktoShebaLogo";
 import { FaHandHoldingMedical, FaNotesMedical, FaUsers } from "react-icons/fa6";
+import useUserRole from "../Hooks/useUserRole";
 
 const DashboardLayOut = () => {
+  const { role, roleLoading } = useUserRole();
   return (
     <div className="drawer lg:drawer-open">
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
@@ -65,104 +67,117 @@ const DashboardLayOut = () => {
           </div>
 
           {/* Nav Items */}
-          <li>
-            <NavLink
-              to="/dashboard"
-              end
-              className={({ isActive }) =>
-                isActive
-                  ? "bg-red-200 text-red-700 font-semibold rounded"
-                  : "hover:bg-red-100 rounded"
-              }
-            >
-              <AiFillHome className="inline-block mr-2 text-lg" />
-            Donor Home
-            </NavLink>
-          </li>
-          {/* <li>
-            <NavLink
-              to="/dashboard"
-              end
-              className={({ isActive }) =>
-                isActive
-                  ? "bg-red-200 text-red-700 font-semibold rounded"
-                  : "hover:bg-red-100 rounded"
-              }
-            >
-              <AiFillHome className="inline-block mr-2 text-lg" />
-              Dashboard Home
-            </NavLink>
-          </li> */}
+          {!roleLoading && role === "donor" && (
+            <>
+              <li>
+                <NavLink
+                  to="/dashboard"
+                  end
+                  className={({ isActive }) =>
+                    isActive
+                      ? "bg-red-200 text-red-700 font-semibold rounded"
+                      : "hover:bg-red-100 rounded"
+                  }
+                >
+                  <AiFillHome className="inline-block mr-2 text-lg" />
+                  Donor Home
+                </NavLink>
+              </li>
 
-          <li>
-            <NavLink
-              to="/dashboard/myDonation"
-              className={({ isActive }) =>
-                isActive
-                  ? "bg-red-200 text-red-700 font-semibold rounded"
-                  : "hover:bg-red-100 rounded"
-              }
-            >
-              <FaHandHoldingMedical className="inline-block mr-2 text-lg" />
-              My Donation
-            </NavLink>
-          </li>
+              <li>
+                <NavLink
+                  to="/dashboard/myDonation"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "bg-red-200 text-red-700 font-semibold rounded"
+                      : "hover:bg-red-100 rounded"
+                  }
+                >
+                  <FaHandHoldingMedical className="inline-block mr-2 text-lg" />
+                  My Donation
+                </NavLink>
+              </li>
 
-          <li>
-            <NavLink
-              to="/dashboard/createDonation"
-              className={({ isActive }) =>
-                isActive
-                  ? "bg-red-200 text-red-700 font-semibold rounded"
-                  : "hover:bg-red-100 rounded"
-              }
-            >
-              <FaNotesMedical className="inline-block mr-2 text-lg" />
-              Create Donation
-            </NavLink>
-          </li>
+              <li>
+                <NavLink
+                  to="/dashboard/createDonation"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "bg-red-200 text-red-700 font-semibold rounded"
+                      : "hover:bg-red-100 rounded"
+                  }
+                >
+                  <FaNotesMedical className="inline-block mr-2 text-lg" />
+                  Create Donation
+                </NavLink>
+              </li>
+            </>
+          )}
+          {/* admin */}
+          {!roleLoading && (role === "admin" || role === "volunteer") && (
+            <>
+              <li>
+                <NavLink
+                  to="/dashboard"
+                  end
+                  className={({ isActive }) =>
+                    isActive
+                      ? "bg-red-200 text-red-700 font-semibold rounded"
+                      : "hover:bg-red-100 rounded"
+                  }
+                >
+                  <AiFillHome className="inline-block mr-2 text-lg" />
+                  Dashboard Home
+                </NavLink>
+              </li>
 
-          <li>
-            <NavLink
-              to="/dashboard/allUsers"
-              className={({ isActive }) =>
-                isActive
-                  ? "bg-red-200 text-red-700 font-semibold rounded"
-                  : "hover:bg-red-100 rounded"
-              }
-            >
-              <FaUsers className="inline-block mr-2 text-lg" />
-              All Users
-            </NavLink>
-          </li>
+              <li>
+                <NavLink
+                  to="/dashboard/allDonation"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "bg-red-200 text-red-700 font-semibold rounded"
+                      : "hover:bg-red-100 rounded"
+                  }
+                >
+                  <FaHandsHelping className="inline-block mr-2 text-lg" />
+                  All Donations
+                </NavLink>
+              </li>
 
-          <li>
-            <NavLink
-              to="/dashboard/allDonation"
-              className={({ isActive }) =>
-                isActive
-                  ? "bg-red-200 text-red-700 font-semibold rounded"
-                  : "hover:bg-red-100 rounded"
-              }
-            >
-              <FaHandsHelping className="inline-block mr-2 text-lg" />
-              All Donations
-            </NavLink>
-          </li>
+              <li>
+                <NavLink
+                  to="/dashboard/content-management"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "bg-red-200 text-red-700 font-semibold rounded"
+                      : "hover:bg-red-100 rounded"
+                  }
+                >
+                  <MdOutlineManageAccounts className="inline-block mr-2 text-lg" />
+                  Content Management
+                </NavLink>
+              </li>
+            </>
+          )}
 
-          <li>
-            <NavLink
-              to="/dashboard/content-management"
-              className={({ isActive }) =>
-                isActive
-                  ? "bg-red-200 text-red-700 font-semibold rounded"
-                  : "hover:bg-red-100 rounded"
-              }
-            >
-              <MdOutlineManageAccounts className="inline-block mr-2 text-lg" />
-              Content Management
-            </NavLink>
-          </li>
+          {!roleLoading && role === "admin" && (
+            <>
+              <li>
+                <NavLink
+                  to="/dashboard/allUsers"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "bg-red-200 text-red-700 font-semibold rounded"
+                      : "hover:bg-red-100 rounded"
+                  }
+                >
+                  <FaUsers className="inline-block mr-2 text-lg" />
+                  All Users
+                </NavLink>
+              </li>
+            </>
+          )}
 
           <li>
             <NavLink

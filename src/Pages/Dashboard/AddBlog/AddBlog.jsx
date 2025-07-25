@@ -46,7 +46,7 @@ const AddBlog = () => {
       }
     } catch (error) {
       setUploading(false);
-      Swal.fire("Error", "Failed to upload image", "error");
+      Swal.fire(`"Error", "Failed to upload image", ${error}`);
     }
   };
 
