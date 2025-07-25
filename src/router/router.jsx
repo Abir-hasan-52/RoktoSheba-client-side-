@@ -20,6 +20,10 @@ import AdminDashboardHome from "../Pages/Dashboard/AdminDashboardHome/AdminDashb
 import Funding from "../Pages/Dashboard/Funding/Funding";
 import MainFunding from "../Pages/Dashboard/Funding/MainFunding";
 import PrivateRoute from "../route/PrivateRoute";
+import DonorDashboardHome from "../Pages/Dashboard/DonorDashboardHome/DonorDashboardHome";
+import EditDonation from "../Pages/Dashboard/EditDonation/EditDonation";
+import DonationDetailsModal from "../Pages/Dashboard/DonationDetails/DonationDetails";
+import DonationDetails from "../Pages/Dashboard/DonationDetails/DonationDetails";
 
 export const router = createBrowserRouter([
   {
@@ -64,9 +68,13 @@ export const router = createBrowserRouter([
       </PrivateRoute>
     ),
     children: [
+      //   {
+      //     index: true,
+      //     element: <AdminDashboardHome></AdminDashboardHome>,
+      //   },
       {
         index: true,
-        element: <AdminDashboardHome></AdminDashboardHome>,
+        element: <DonorDashboardHome></DonorDashboardHome>,
       },
       {
         path: "myDonation",
@@ -95,6 +103,14 @@ export const router = createBrowserRouter([
       {
         path: "mainFunding",
         Component: MainFunding,
+      },
+      {
+        path: "editDonation/:id",
+        Component: EditDonation,
+      },
+      {
+        path: "donation-details/:id",
+        Component:  DonationDetails,
       },
     ],
   },

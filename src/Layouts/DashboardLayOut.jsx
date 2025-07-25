@@ -76,9 +76,23 @@ const DashboardLayOut = () => {
               }
             >
               <AiFillHome className="inline-block mr-2 text-lg" />
-              Dashboard Home
+            Donor Home
             </NavLink>
           </li>
+          {/* <li>
+            <NavLink
+              to="/dashboard"
+              end
+              className={({ isActive }) =>
+                isActive
+                  ? "bg-red-200 text-red-700 font-semibold rounded"
+                  : "hover:bg-red-100 rounded"
+              }
+            >
+              <AiFillHome className="inline-block mr-2 text-lg" />
+              Dashboard Home
+            </NavLink>
+          </li> */}
 
           <li>
             <NavLink
