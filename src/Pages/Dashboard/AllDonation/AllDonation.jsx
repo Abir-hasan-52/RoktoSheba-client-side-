@@ -14,8 +14,10 @@ import {
   FaInfoCircle,
 } from "react-icons/fa";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
-import { img } from "framer-motion/client";
+// import { img } from "framer-motion/client";
 import { useNavigate } from "react-router";
+import useUserRole from "../../../Hooks/useUserRole";
+
 
 const ITEMS_PER_PAGE = 5;
 const MySwal = withReactContent(Swal);
@@ -25,6 +27,7 @@ const AllDonation = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const [filterStatus, setFilterStatus] = useState("all");
   const navigate = useNavigate();
+  const {role}=useUserRole();
 
   // 👉 Fetch Donation Requests
   const {
@@ -270,6 +273,7 @@ const AllDonation = () => {
                   <td className="text-center space-x-1">
                     <button
                       title="View"
+                      disabled={role !== "admin"}
                       className="btn btn-sm btn-ghost"
                       onClick={() =>
                         navigate(`/dashboard/donation-details/${donation._id}`)
@@ -279,6 +283,7 @@ const AllDonation = () => {
                     </button>
                     <button
                       title="Edit"
+                      disabled={role !== "admin"}
                       className="btn btn-sm btn-warning"
                       onClick={() =>
                         navigate(`/dashboard/editDonation/${donation._id}`)
@@ -288,6 +293,7 @@ const AllDonation = () => {
                     </button>
                     <button
                       title="Delete"
+                      disabled={role !== "admin"}
                       className="btn btn-sm btn-error"
                       onClick={() => handleDelete(donation._id)}
                     >
@@ -297,6 +303,7 @@ const AllDonation = () => {
                       <>
                         <button
                           title="Mark Done"
+                          disabled={role !== "admin"}
                           className="btn btn-sm btn-success"
                           onClick={() =>
                             handleStatusUpdate(donation._id, "done")
@@ -306,6 +313,7 @@ const AllDonation = () => {
                         </button>
                         <button
                           title="Cancel"
+                          disabled={role !== "admin"}
                           className="btn btn-sm btn-error"
                           onClick={() =>
                             handleStatusUpdate(donation._id, "canceled")
@@ -323,6 +331,7 @@ const AllDonation = () => {
                           ? "Donor Already Assigned"
                           : "Assign Donor"
                       }
+                     
                       className={`btn btn-sm btn-outline ${
                         donation.status !== "pending" || donation.assignedDonor
                           ? "btn-disabled text-gray-400 cursor-not-allowed"
@@ -330,6 +339,7 @@ const AllDonation = () => {
                       }`}
                       onClick={() => handleAssignDonor(donation._id)}
                       disabled={
+                         role !== "admin"||
                         donation.status !== "pending" ||
                         !!donation.assignedDonor
                       }
@@ -340,6 +350,7 @@ const AllDonation = () => {
                     {donation.donorEmail && (
                       <button
                         title="View Donor Info"
+                        disabled={role !== "admin"}
                         className="btn btn-sm btn-outline btn-accent"
                         onClick={() => handleViewDonor(donation.donorEmail)}
                       >
