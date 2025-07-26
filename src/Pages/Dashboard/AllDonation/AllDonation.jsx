@@ -1,196 +1,387 @@
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import useAxiosSecure from "../../../Hooks/useAxiosSecure";
-import { useState } from "react";
+// 🧩 Necessary Imports
+import React, { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import ReactPaginate from "react-paginate";
 import Swal from "sweetalert2";
-import { FaCheck, FaTimes, FaHourglassHalf } from "react-icons/fa";
+import withReactContent from "sweetalert2-react-content";
+import {
+  FaEye,
+  FaEdit,
+  FaTrash,
+  FaCheckCircle,
+  FaTimesCircle,
+  FaUserPlus,
+  FaInfoCircle,
+} from "react-icons/fa";
+import useAxiosSecure from "../../../Hooks/useAxiosSecure";
+import { img } from "framer-motion/client";
 
-const statusColors = {
-  pending: "text-yellow-500",
-  approved: "text-blue-600",
-  completed: "text-green-600",
-  cancelled: "text-red-500",
-};
+const ITEMS_PER_PAGE = 5;
+const MySwal = withReactContent(Swal);
 
 const AllDonation = () => {
   const axiosSecure = useAxiosSecure();
-  const queryClient = useQueryClient();
+  const [currentPage, setCurrentPage] = useState(0);
+  const [filterStatus, setFilterStatus] = useState("all");
 
-  const [page, setPage] = useState(0);
-  const limit = 10;
-
-  const { data, isLoading, isError } = useQuery({
-    queryKey: ["all-donations", page],
+  // 👉 Fetch Donation Requests
+  const {
+    data = {},
+    isLoading,
+    isError,
+    error,
+    refetch,
+  } = useQuery({
+    queryKey: ["allDonations", currentPage, filterStatus],
     queryFn: async () => {
-      const res = await axiosSecure.get(
-        `/allDonations?page=${page}&limit=${limit}`
-      );
+      let url = `/all-donations?page=${currentPage}&limit=${ITEMS_PER_PAGE}`;
+      if (filterStatus !== "all") {
+        url += `&status=${filterStatus}`;
+      }
+      const res = await axiosSecure.get(url);
+      return res.data;
+    },
+    keepPreviousData: true,
+  });
+
+  // 👉 Fetch Active Donors
+  const {
+    data: activeDonors = [],
+    isLoading: donorsLoading,
+    isError: donorsError,
+  } = useQuery({
+    queryKey: ["activeDonors"],
+    queryFn: async () => {
+      const res = await axiosSecure.get("/allUsers/active-donors");
       return res.data;
     },
   });
 
-  // ✅ FIXED HERE: changed totalCount → total
-  const { total = 0, donations = [] } = data || {};
-  const totalPages = Math.ceil(total / limit);
+  const { donations = [], totalCount = 0 } = data;
+  const pageCount = Math.ceil(totalCount / ITEMS_PER_PAGE);
 
-  const { mutateAsync: updateStatus } = useMutation({
-    mutationFn: async ({ id, newStatus }) => {
-      const res = await axiosSecure.patch(`/donations/${id}`, {
-        status: newStatus,
-      });
-      return res.data;
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries(["all-donations"]);
-    },
-  });
+  const handlePageClick = (event) => {
+    setCurrentPage(event.selected);
+  };
 
-  const handleStatusUpdate = async (id, newStatus) => {
-    const confirm = await Swal.fire({
-      title: `Are you sure?`,
-      text: `You want to mark as ${newStatus}`,
-      icon: "question",
+  const handleDelete = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "This donation request will be deleted permanently!",
+      icon: "warning",
       showCancelButton: true,
-      confirmButtonText: "Yes",
+      confirmButtonColor: "#be123c",
+      cancelButtonColor: "#6b7280",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosSecure.delete(`/myDonations/${id}`).then(() => {
+          Swal.fire("Deleted!", "Donation request deleted.", "success");
+          refetch();
+        });
+      }
     });
-    if (confirm.isConfirmed) {
+  };
+
+  const handleStatusUpdate = (id, status) => {
+    axiosSecure.patch(`/donations/${id}`, { status }).then(() => {
+      Swal.fire("Updated!", `Status changed to ${status}`, "success");
+      refetch();
+    });
+  };
+
+  const handleAssignDonor = async (donationId) => {
+    const donorOptions = activeDonors
+      .map((donor) => {
+        return `
+        <option value="${donor.email}">
+          ${donor.name} | ${donor.blood_group} | ${donor.district}, ${donor.upazila}
+        </option>
+      `;
+      })
+      .join("");
+
+    const { value: donorEmail } = await Swal.fire({
+      title: "<span style='color:#0d6efd;'>Assign Donor</span>",
+      html: `
+      <label for="donorSelect" style="font-weight: 600; display:block; margin-bottom: 8px; color:#333;">
+        Select a donor
+      </label>
+      <select id="donorSelect" class="swal2-select" style="
+        width: 100%;
+        padding: 10px;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+        font-size: 16px;
+        background-color: #f9f9f9;
+        color: #333;
+      ">
+        <option value="">-- Choose a Donor --</option>
+        ${donorOptions}
+      </select>
+    `,
+      width: "400px",
+      confirmButtonText: "<i class='fas fa-check'></i> Assign",
+      cancelButtonText: "<i class='fas fa-times'></i> Cancel",
+      showCancelButton: true,
+      confirmButtonColor: "#198754", // Green
+      cancelButtonColor: "#dc3545", // Red
+      focusConfirm: false,
+      preConfirm: () => {
+        const select = Swal.getPopup().querySelector("#donorSelect");
+        const value = select.value;
+        if (!value) {
+          Swal.showValidationMessage("Please select a donor");
+        }
+        return value;
+      },
+    });
+
+    if (donorEmail) {
       try {
-        await updateStatus({ id, newStatus });
-        Swal.fire("Success!", "Status updated successfully", "success");
+        await axiosSecure.patch(`/donation/assign-donor/${donationId}`, {
+          donorEmail,
+        });
+        Swal.fire({
+          title: "✅ Success!",
+          text: "Donor assigned successfully.",
+          icon: "success",
+          confirmButtonColor: "#0d6efd",
+        });
+        refetch();
       } catch (err) {
-        console.error(err);
-        Swal.fire("Error", "Failed to update status", "error");
+        Swal.fire({
+          title: "❌ Error",
+          text: err.response?.data?.message || "Failed to assign donor",
+          icon: "error",
+          confirmButtonColor: "#dc3545",
+        });
       }
     }
   };
 
-  if (isLoading) return <p className="text-center py-10">Loading...</p>;
-  if (isError)
+  // 👁️ View Donor Info
+  const handleViewDonor = async (donorEmail) => {
+    try {
+      const res = await axiosSecure.get(`/users/donor/${donorEmail}`);
+      const donor = res.data;
+
+      await Swal.fire({
+        title: donor.name,
+        html: `
+        <img src="${donor.avatar}" 
+             alt="avatar" 
+             style="width:100px; height:100px; border-radius:50%; margin: 10px auto; display: block;" />
+        <p><strong>Email:</strong> ${donor.email}</p>
+        <p><strong>Blood Group:</strong> ${donor.blood_group}</p>
+        <p><strong>District:</strong> ${donor.district}</p>
+        <p><strong>Upazila:</strong> ${donor.upazila}</p>
+      `,
+        showCloseButton: true,
+        confirmButtonText: "Close",
+      });
+    } catch (err) {
+      Swal.fire("Error", "Donor not found or not active", "error");
+    }
+  };
+
+  if (isLoading || donorsLoading)
     return (
-      <p className="text-center py-10 text-red-600">
-        Failed to fetch donations.
+      <p className="text-center text-[#be123c] font-medium py-10">Loading...</p>
+    );
+
+  if (isError || donorsError)
+    return (
+      <p className="text-center text-red-500 mt-10 font-semibold">
+        Error loading data.
       </p>
     );
 
   return (
-    <div className="p-4">
-      <h2 className="text-2xl font-semibold mb-4 text-center">
-        🩸 All Blood Donation Requests
+    <div className="p-6 max-w-7xl mx-auto">
+      <h2 className="text-3xl font-bold text-center mb-6 text-[#be123c]">
+        All Blood Donation Requests
       </h2>
-      <div className="overflow-x-auto">
-        <table className="table w-full text-sm">
-          <thead className="bg-gray-100 text-gray-700">
-            <tr>
-              <th>#</th>
-              <th>Requester</th>
-              <th>Recipient</th>
-              <th>Blood Group</th>
-              <th>Date & Time</th>
-              <th>Status</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {donations.map((donation, index) => (
-              <tr key={donation._id} className="hover:bg-gray-50">
-                <td>{page * limit + index + 1}</td>
-                <td>
-                  <div>
-                    <p className="font-semibold">{donation.requesterName}</p>
-                    <p className="text-xs text-gray-500">
-                      {donation.requesterEmail}
-                    </p>
-                  </div>
-                </td>
-                <td>
-                  <p>{donation.recipientName}</p>
-                  <p className="text-xs text-gray-500">
-                    {donation.recipientUpazila}, {donation.recipientDistrict}
-                  </p>
-                </td>
-                <td className="font-medium">{donation.bloodGroup}</td>
-                <td>
-                  <p>{donation.donationDate}</p>
-                  <p className="text-xs text-gray-500">
-                    {donation.donationTime}
-                  </p>
-                </td>
-                <td
-                  className={`${
-                    statusColors[donation.status]
-                  } font-semibold capitalize`}
-                >
-                  {donation.status}
-                </td>
-                <td className="space-x-1">
-                  {donation.status === "pending" && (
-                    <button
-                      onClick={() =>
-                        handleStatusUpdate(donation._id, "approved")
-                      }
-                      className="btn btn-xs btn-outline btn-info"
+
+      {/* Filter */}
+      <div className="flex justify-between items-center mb-4">
+        <select
+          className="select select-bordered max-w-xs"
+          value={filterStatus}
+          onChange={(e) => {
+            setFilterStatus(e.target.value);
+            setCurrentPage(0);
+          }}
+        >
+          <option value="all">All</option>
+          <option value="pending">Pending</option>
+          <option value="inprogress">In Progress</option>
+          <option value="done">Done</option>
+          <option value="canceled">Canceled</option>
+        </select>
+      </div>
+
+      {/* Table */}
+      {donations.length === 0 ? (
+        <p className="text-center text-gray-500">No donation requests found.</p>
+      ) : (
+        <div className="overflow-x-auto shadow rounded-lg bg-white">
+          <table className="table w-full">
+            <thead className="bg-gray-100 text-gray-700 uppercase text-sm">
+              <tr>
+                <th>Recipient</th>
+                <th>Blood Group</th>
+                <th>Location</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th className="text-center">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {donations.map((donation) => (
+                <tr key={donation._id}>
+                  <td>{donation.recipientName}</td>
+                  <td>{donation.bloodGroup}</td>
+                  <td>
+                    {donation.recipientDistrict}, {donation.recipientUpazila}
+                  </td>
+                  <td>
+                    {new Date(donation.donationDate).toLocaleDateString()}
+                  </td>
+                  <td>
+                    <span
+                      className={`badge capitalize ${
+                        donation.status === "pending"
+                          ? "badge-warning"
+                          : donation.status === "inprogress"
+                          ? "badge-info"
+                          : donation.status === "done"
+                          ? "badge-success"
+                          : donation.status === "canceled"
+                          ? "badge-error"
+                          : "badge-neutral"
+                      }`}
                     >
-                      <FaHourglassHalf className="mr-1" /> Approve
-                    </button>
-                  )}
-                  {donation.status === "approved" && (
+                      {donation.status}
+                    </span>
+                  </td>
+                  <td className="text-center space-x-1">
                     <button
+                      title="View"
+                      className="btn btn-sm btn-ghost"
                       onClick={() =>
-                        handleStatusUpdate(donation._id, "completed")
+                        window.open(
+                          `/dashboard/donation-details/${donation._id}`,
+                          "_blank"
+                        )
                       }
-                      className="btn btn-xs btn-outline btn-success"
                     >
-                      <FaCheck className="mr-1" /> Complete
+                      <FaEye />
                     </button>
-                  )}
-                  {donation.status !== "cancelled" &&
-                    donation.status !== "completed" && (
+                    <button
+                      title="Edit"
+                      className="btn btn-sm btn-warning"
+                      onClick={() =>
+                        window.location.assign(
+                          `/dashboard/editDonation/${donation._id}`
+                        )
+                      }
+                    >
+                      <FaEdit />
+                    </button>
+                    <button
+                      title="Delete"
+                      className="btn btn-sm btn-error"
+                      onClick={() => handleDelete(donation._id)}
+                    >
+                      <FaTrash />
+                    </button>
+                    {donation.status === "inprogress" && (
+                      <>
+                        <button
+                          title="Mark Done"
+                          className="btn btn-sm btn-success"
+                          onClick={() =>
+                            handleStatusUpdate(donation._id, "done")
+                          }
+                        >
+                          <FaCheckCircle />
+                        </button>
+                        <button
+                          title="Cancel"
+                          className="btn btn-sm btn-error"
+                          onClick={() =>
+                            handleStatusUpdate(donation._id, "canceled")
+                          }
+                        >
+                          <FaTimesCircle />
+                        </button>
+                      </>
+                    )}
+                    <button
+                      title={
+                        donation.status !== "pending"
+                          ? "Donor can be assigned only when status is Pending"
+                          : donation.assignedDonor
+                          ? "Donor Already Assigned"
+                          : "Assign Donor"
+                      }
+                      className={`btn btn-sm btn-outline ${
+                        donation.status !== "pending" || donation.assignedDonor
+                          ? "btn-disabled text-gray-400 cursor-not-allowed"
+                          : "btn-info"
+                      }`}
+                      onClick={() => handleAssignDonor(donation._id)}
+                      disabled={
+                        donation.status !== "pending" ||
+                        !!donation.assignedDonor
+                      }
+                    >
+                      <FaUserPlus />
+                    </button>
+
+                    {donation.donorEmail && (
                       <button
-                        onClick={() =>
-                          handleStatusUpdate(donation._id, "cancelled")
-                        }
-                        className="btn btn-xs btn-outline btn-error"
+                        title="View Donor Info"
+                        className="btn btn-sm btn-outline btn-accent"
+                        onClick={() => handleViewDonor(donation.donorEmail)}
                       >
-                        <FaTimes className="mr-1" /> Cancel
+                        <FaInfoCircle />
                       </button>
                     )}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
 
-      {/* ✅ Pagination */}
-      {/* ✅ Pagination with Prev/Next */}
-      <div className="flex justify-center mt-6 flex-wrap items-center gap-2">
-        <button
-          onClick={() => setPage((prev) => Math.max(prev - 1, 0))}
-          disabled={page === 0}
-          className="btn btn-sm btn-outline"
-        >
-          Prev
-        </button>
-
-        {[...Array(totalPages).keys()].map((p) => (
-          <button
-            key={p}
-            onClick={() => setPage(p)}
-            className={`btn btn-sm ${
-              p === page ? "btn-active btn-info text-white" : "btn-outline"
-            }`}
-          >
-            {p + 1}
-          </button>
-        ))}
-
-        <button
-          onClick={() => setPage((prev) => Math.min(prev + 1, totalPages - 1))}
-          disabled={page === totalPages - 1}
-          className="btn btn-sm btn-outline"
-        >
-          Next
-        </button>
-      </div>
+      {/* Pagination */}
+      {pageCount > 1 && (
+        <div className="mt-6 flex justify-center">
+          <ReactPaginate
+            previousLabel={"← Prev"}
+            nextLabel={"Next →"}
+            breakLabel={"..."}
+            onPageChange={handlePageClick}
+            pageCount={pageCount}
+            forcePage={currentPage}
+            containerClassName={"flex gap-2 text-sm"}
+            pageClassName={
+              "px-3 py-1 border rounded-md cursor-pointer hover:bg-blue-100"
+            }
+            activeClassName={"bg-blue-600 text-white"}
+            previousClassName={
+              "px-3 py-1 border rounded-md cursor-pointer select-none"
+            }
+            nextClassName={
+              "px-3 py-1 border rounded-md cursor-pointer select-none"
+            }
+            disabledClassName={"opacity-50 cursor-not-allowed"}
+          />
+        </div>
+      )}
     </div>
   );
 };

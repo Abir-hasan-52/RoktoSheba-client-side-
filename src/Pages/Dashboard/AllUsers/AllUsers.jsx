@@ -17,7 +17,7 @@ const AllUsers = () => {
     queryKey: ["all-users", page, filter],
     queryFn: async () => {
       const res = await axiosSecure.get(
-        `/users?page=${page}&limit=${limit}&status=${filter}`
+        `/allUsers?page=${page - 1}&limit=${limit}&status=${filter}`
       );
       return res.data;
     },
@@ -26,7 +26,7 @@ const AllUsers = () => {
 
   const mutation = useMutation({
     mutationFn: async ({ id, update }) => {
-      return axiosSecure.patch(`/users/${id}`, update);
+      return axiosSecure.patch(`/allUsers/${id}`, update);
     },
     onSuccess: () => {
       queryClient.invalidateQueries(["all-users"]);
@@ -57,45 +57,27 @@ const AllUsers = () => {
     }
   };
 
-  const totalPages = Math.ceil((data?.total || 0) / limit);
+  const totalPages = Math.ceil((data?.totalCount || 0) / limit);
+
+  const pageNumbers = Array.from({ length: totalPages }, (_, i) => i + 1);
 
   return (
     <div className="p-4">
       <h2 className="text-2xl font-bold mb-4 text-center">All Users</h2>
 
-      <div className="mb-4 flex justify-between items-center">
+      <div className="mb-4 flex justify-between items-center flex-wrap gap-2">
         <select
           className="select select-bordered"
           value={filter}
           onChange={(e) => {
             setFilter(e.target.value);
-            setPage(1); // reset page when filter changes
+            setPage(1);
           }}
         >
           <option value="all">All</option>
           <option value="active">Active</option>
           <option value="blocked">Blocked</option>
         </select>
-
-        <div className="join">
-          <button
-            className="join-item btn btn-sm"
-            onClick={() => setPage((p) => Math.max(1, p - 1))}
-            disabled={page === 1}
-          >
-            « Prev
-          </button>
-          <button className="join-item btn btn-sm btn-disabled">
-            Page {page}
-          </button>
-          <button
-            className="join-item btn btn-sm"
-            onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
-            disabled={page === totalPages}
-          >
-            Next »
-          </button>
-        </div>
       </div>
 
       {isLoading ? (
@@ -152,6 +134,35 @@ const AllUsers = () => {
           </table>
         </div>
       )}
+
+      {/* Pagination below table */}
+      <div className="mt-4 flex justify-center">
+        <div className="join">
+          <button
+            className="join-item btn btn-sm"
+            onClick={() => setPage((p) => Math.max(1, p - 1))}
+            disabled={page === 1}
+          >
+            « Prev
+          </button>
+          {pageNumbers.map((num) => (
+            <button
+              key={num}
+              className={`join-item btn btn-sm ${num === page ? "btn-active" : ""}`}
+              onClick={() => setPage(num)}
+            >
+              {num}
+            </button>
+          ))}
+          <button
+            className="join-item btn btn-sm"
+            onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+            disabled={page === totalPages}
+          >
+            Next »
+          </button>
+        </div>
+      </div>
 
       {/* Action Modal */}
       {selectedUser && (

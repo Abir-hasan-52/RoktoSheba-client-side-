@@ -19,6 +19,7 @@ const MyDonations = () => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
   const [currentPage, setCurrentPage] = useState(0);
+  const [filterStatus, setFilterStatus] = useState("all");
 
   const {
     data = {},
@@ -27,10 +28,10 @@ const MyDonations = () => {
     error,
     refetch,
   } = useQuery({
-    queryKey: ["myDonations", user?.email, currentPage],
+    queryKey: ["myDonations", user?.email, currentPage, filterStatus],
     queryFn: async () => {
       const res = await axiosSecure.get(
-        `/myDonations?email=${user?.email}&page=${currentPage}&limit=${ITEMS_PER_PAGE}`
+        `/myDonations?email=${user?.email}&page=${currentPage}&limit=${ITEMS_PER_PAGE}&status=${filterStatus}`
       );
       return res.data; // { totalCount, donations }
     },
@@ -44,7 +45,11 @@ const MyDonations = () => {
     setCurrentPage(event.selected);
   };
 
-  // Delete function
+  const handleFilterChange = (e) => {
+    setFilterStatus(e.target.value);
+    setCurrentPage(0); // Reset to first page on filter change
+  };
+
   const handleDelete = (id) => {
     Swal.fire({
       title: "Are you sure?",
@@ -64,7 +69,6 @@ const MyDonations = () => {
     });
   };
 
-  // Status Update
   const handleStatusUpdate = (id, status) => {
     axiosSecure.patch(`/myDonations/${id}`, { status }).then(() => {
       Swal.fire("Updated!", `Status changed to ${status}`, "success");
@@ -88,6 +92,21 @@ const MyDonations = () => {
       <h2 className="text-2xl font-bold text-center mb-4 text-[#be123c]">
         My Donation Requests
       </h2>
+
+      {/* Filter Dropdown */}
+      <div className="flex justify-center mb-6">
+        <select
+          value={filterStatus}
+          onChange={handleFilterChange}
+          className="px-4 py-2 border border-gray-300 rounded-lg text-sm"
+        >
+          <option value="all">All</option>
+          <option value="pending">Pending</option>
+          <option value="inprogress">In Progress</option>
+          <option value="done">Done</option>
+          <option value="canceled">Canceled</option>
+        </select>
+      </div>
 
       <p className="text-center text-sm text-gray-500 mb-8">
         Page {currentPage + 1} of {pageCount}
@@ -139,17 +158,17 @@ const MyDonations = () => {
               <div className="mt-4 flex flex-wrap items-center justify-between gap-2">
                 {/* Status Badge */}
                 <span
-                  className={`px-3 py-1 rounded-full text-white text-xs ${
+                  className={`px-3 py-1 rounded-full text-white text-xs capitalize ${
                     donation.status === "pending"
                       ? "bg-yellow-500"
-                      : donation.status === "approved"
-                      ? "bg-green-500"
+                      : donation.status === "inprogress"
+                      ? "bg-purple-500"
                       : donation.status === "done"
                       ? "bg-blue-600"
                       : donation.status === "canceled"
                       ? "bg-gray-500"
                       : "bg-red-500"
-                  } capitalize`}
+                  }`}
                 >
                   {donation.status}
                 </span>
@@ -184,10 +203,12 @@ const MyDonations = () => {
                   </button>
 
                   {/* Status Controls */}
-                  {donation.status === "approved" && (
+                  {donation.status === "inprogress" && (
                     <>
                       <button
-                        onClick={() => handleStatusUpdate(donation._id, "done")}
+                        onClick={() =>
+                          handleStatusUpdate(donation._id, "done")
+                        }
                         className="text-green-600 hover:text-green-800"
                         title="Mark as Done"
                       >

@@ -96,7 +96,7 @@ const DonorDashboardHome = () => {
 
                     {/* Status Control */}
 
-                    {req.status === "approved" && (
+                    {req.status === "inprogress" && (
                       <>
                         <button
                           onClick={() => handleStatusUpdate(req._id, "done")}
