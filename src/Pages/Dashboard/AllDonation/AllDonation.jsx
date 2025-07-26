@@ -15,6 +15,7 @@ import {
 } from "react-icons/fa";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import { img } from "framer-motion/client";
+import { useNavigate } from "react-router";
 
 const ITEMS_PER_PAGE = 5;
 const MySwal = withReactContent(Swal);
@@ -23,6 +24,7 @@ const AllDonation = () => {
   const axiosSecure = useAxiosSecure();
   const [currentPage, setCurrentPage] = useState(0);
   const [filterStatus, setFilterStatus] = useState("all");
+  const navigate = useNavigate();
 
   // 👉 Fetch Donation Requests
   const {
@@ -270,10 +272,7 @@ const AllDonation = () => {
                       title="View"
                       className="btn btn-sm btn-ghost"
                       onClick={() =>
-                        window.open(
-                          `/dashboard/donation-details/${donation._id}`,
-                          "_blank"
-                        )
+                        navigate(`/dashboard/donation-details/${donation._id}`)
                       }
                     >
                       <FaEye />
@@ -282,9 +281,7 @@ const AllDonation = () => {
                       title="Edit"
                       className="btn btn-sm btn-warning"
                       onClick={() =>
-                        window.location.assign(
-                          `/dashboard/editDonation/${donation._id}`
-                        )
+                        navigate(`/dashboard/editDonation/${donation._id}`)
                       }
                     >
                       <FaEdit />
@@ -361,6 +358,7 @@ const AllDonation = () => {
       {pageCount > 1 && (
         <div className="mt-6 flex justify-center">
           <ReactPaginate
+            key={currentPage}
             previousLabel={"← Prev"}
             nextLabel={"Next →"}
             breakLabel={"..."}
