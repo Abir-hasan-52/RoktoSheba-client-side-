@@ -11,6 +11,7 @@ import {
   FaInfoCircle,
   FaUser
 } from "react-icons/fa";
+import RoktoLoading from "../Shared/RoktoLoading/RoktoLoading";
 
 const DonationRequestDetails = () => {
   const { id } = useParams();
@@ -36,9 +37,7 @@ const DonationRequestDetails = () => {
 
   if (!request) {
     return (
-      <div className="text-center mt-20 text-lg text-gray-600">
-        ⏳ Loading request details...
-      </div>
+       <RoktoLoading/>
     );
   }
 

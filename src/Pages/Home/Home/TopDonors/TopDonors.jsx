@@ -4,6 +4,7 @@ import { FaTint, FaMapMarkerAlt, FaMedal } from "react-icons/fa";
 import { motion } from "framer-motion";
  
 import useAxios from "../../../../Hooks/useAxios";
+import RoktoLoading from "../../../Shared/RoktoLoading/RoktoLoading";
 
 const TopDonors = () => {
   
@@ -19,9 +20,7 @@ const TopDonors = () => {
 console.log(donors);
   if (isLoading) {
     return (
-      <div className="text-center py-10 text-red-600 font-semibold">
-        Loading top donors...
-      </div>
+       <RoktoLoading/>
     );
   }
 

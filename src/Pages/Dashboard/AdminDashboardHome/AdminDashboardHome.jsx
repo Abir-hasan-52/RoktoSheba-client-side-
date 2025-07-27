@@ -4,6 +4,7 @@ import useAuth from "../../../Hooks/useAuth";
 import Welcome from "../../Shared/Welcome/Welcome";
 import useAxios from "../../../Hooks/useAxios";
 import useUserRole from "../../../Hooks/useUserRole";
+import RoktoLoading from "../../Shared/RoktoLoading/RoktoLoading";
 
 const AdminDashboardHome = () => {
   const { user } = useAuth();
@@ -44,9 +45,7 @@ const AdminDashboardHome = () => {
   };
 
   if (!stats)
-    return (
-      <div className="text-center py-10 font-medium">Loading stats...</div>
-    );
+    return <RoktoLoading/>;
 
   const cardData = [
     {

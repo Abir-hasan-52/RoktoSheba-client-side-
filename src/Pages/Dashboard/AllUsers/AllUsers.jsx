@@ -3,6 +3,7 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import { FaEllipsisV } from "react-icons/fa";
+import RoktoLoading from "../../Shared/RoktoLoading/RoktoLoading";
 
 const AllUsers = () => {
   const axiosSecure = useAxiosSecure();
@@ -83,7 +84,7 @@ const AllUsers = () => {
       </div>
 
       {isLoading ? (
-        <p className="text-center">Loading users...</p>
+        <RoktoLoading></RoktoLoading>
       ) : (
         <div className="overflow-x-auto shadow rounded-lg">
           <table className="table w-full bg-white">
@@ -116,7 +117,9 @@ const AllUsers = () => {
                   <td>
                     <span
                       className={`badge ${
-                        user.status === "blocked" ? "badge-error" : "badge-success"
+                        user.status === "blocked"
+                          ? "badge-error"
+                          : "badge-success"
                       }`}
                     >
                       {user.status}
@@ -126,7 +129,9 @@ const AllUsers = () => {
                     <button
                       className="btn btn-ghost btn-sm"
                       onClick={() =>
-                        setDropdownOpen(dropdownOpen === user._id ? null : user._id)
+                        setDropdownOpen(
+                          dropdownOpen === user._id ? null : user._id
+                        )
                       }
                     >
                       <FaEllipsisV />
@@ -188,7 +193,9 @@ const AllUsers = () => {
           {pageNumbers.map((num) => (
             <button
               key={num}
-              className={`join-item btn btn-sm ${num === page ? "btn-active" : ""}`}
+              className={`join-item btn btn-sm ${
+                num === page ? "btn-active" : ""
+              }`}
               onClick={() => setPage(num)}
             >
               {num}

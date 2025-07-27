@@ -4,6 +4,7 @@ import useAuth from "../../../Hooks/useAuth";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
+import RoktoLoading from "../../Shared/RoktoLoading/RoktoLoading";
 
 const CreateDonation = () => {
   const { user } = useAuth();
@@ -88,7 +89,7 @@ const CreateDonation = () => {
     }
   };
 
-  if (isLoading) return <div className="text-center p-4">Loading...</div>;
+  if (isLoading) return <RoktoLoading/>;
 
   return (
     <div className="max-w-3xl mx-auto p-4 md:p-6 bg-white rounded-lg shadow">

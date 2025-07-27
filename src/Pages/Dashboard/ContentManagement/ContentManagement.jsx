@@ -5,12 +5,13 @@ import Swal from "sweetalert2";
 import { useNavigate } from "react-router";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import useUserRole from "../../../Hooks/useUserRole";
+import RoktoLoading from "../../Shared/RoktoLoading/RoktoLoading";
 
 const ContentManagement = () => {
   const axiosSecure = useAxiosSecure();
   const queryClient = useQueryClient();
   const navigate = useNavigate();
-  const {role}=useUserRole();
+  const { role } = useUserRole();
 
   const [statusFilter, setStatusFilter] = useState("all");
   const [page, setPage] = useState(0);
@@ -110,7 +111,7 @@ const ContentManagement = () => {
         </select>
       </div>
 
-      {isLoading && <p>Loading blogs...</p>}
+      {isLoading && <RoktoLoading />}
       {isError && <p className="text-red-600">Error: {error.message}</p>}
 
       {!isLoading && blogs.length === 0 && (
@@ -146,7 +147,7 @@ const ContentManagement = () => {
                     {blog.status === "draft" && (
                       <button
                         className="btn btn-xs btn-success"
-                         disabled={role !== "admin"}
+                        disabled={role !== "admin"}
                         onClick={() =>
                           handleStatusChange(blog._id, "published")
                         }
@@ -157,7 +158,7 @@ const ContentManagement = () => {
                     {blog.status === "published" && (
                       <button
                         className="btn btn-xs btn-warning"
-                         disabled={role !== "admin"}
+                        disabled={role !== "admin"}
                         onClick={() => handleStatusChange(blog._id, "draft")}
                       >
                         Unpublish
@@ -165,7 +166,7 @@ const ContentManagement = () => {
                     )}
                     <button
                       className="btn btn-xs btn-error"
-                       disabled={role !== "admin"}
+                      disabled={role !== "admin"}
                       onClick={() => handleDelete(blog._id)}
                     >
                       Delete
@@ -177,7 +178,7 @@ const ContentManagement = () => {
           </table>
 
           {/* Pagination */}
-          
+
           <div className="mt-4 flex justify-center items-center space-x-2 flex-wrap">
             <button
               className="btn btn-sm btn-outline"

@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import { FaArrowLeft } from "react-icons/fa";
 import { Link } from "react-router";
+import RoktoLoading from "../../Shared/RoktoLoading/RoktoLoading";
 
 const DonationDetails = () => {
   const { id } = useParams();
@@ -21,12 +22,7 @@ const DonationDetails = () => {
     enabled: !!id,
   });
 
-  if (isLoading)
-    return (
-      <div className="p-6 text-center animate-pulse text-[#be123c] font-medium">
-        Loading...
-      </div>
-    );
+  if (isLoading) return <RoktoLoading />;
   if (isError || !donation)
     return (
       <div className="p-6 text-center text-red-500 font-medium">
@@ -66,8 +62,7 @@ const DonationDetails = () => {
             {new Date(donation.donationDate).toLocaleDateString("en-GB")}
           </p>
           <p>
-            <span className="font-semibold">Time:</span>{" "}
-            {donation.donationTime}
+            <span className="font-semibold">Time:</span> {donation.donationTime}
           </p>
         </div>
 

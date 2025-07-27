@@ -1,19 +1,23 @@
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
+ 
 import { FaRegCalendarAlt, FaUser } from "react-icons/fa";
 import { MdBloodtype } from "react-icons/md";
+import useAxios from "../../Hooks/useAxios";
+ 
+import RoktoLoading from "../Shared/RoktoLoading/RoktoLoading";
 
 const Blog = () => {
+    const axiosInstance = useAxios();
   const { data: blogs = [], isLoading } = useQuery({
     queryKey: ["publishedBlogs"],
     queryFn: async () => {
-      const res = await axios.get("http://localhost:5000/published-blogs");
+      const res = await axiosInstance.get("/published-blogs");
       return res.data;
     },
   });
 
-  if (isLoading) return <p className="text-center py-10 text-lg">Loading blogs...</p>;
+  if (isLoading) return  <RoktoLoading/>;
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-10">

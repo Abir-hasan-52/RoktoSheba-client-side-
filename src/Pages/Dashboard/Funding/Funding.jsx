@@ -9,6 +9,7 @@ import Button from "../../Shared/Button/Button";
 import { useNavigate } from "react-router";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
+import RoktoLoading from "../../Shared/RoktoLoading/RoktoLoading";
 
 const ITEMS_PER_PAGE = 5;
 
@@ -36,11 +37,7 @@ const Funding = () => {
   };
 
   if (isLoading) {
-    return (
-      <div className="p-6 text-center text-blue-600">
-        ⏳ Loading funding data...
-      </div>
-    );
+    return <RoktoLoading />;
   }
 
   if (isError) {
@@ -54,7 +51,9 @@ const Funding = () => {
   return (
     <div className="p-4 sm:p-6 space-y-6">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-        <h2 className=" text-2xl font-bold text-rose-600 mb-4 ">💸 Funding History</h2>
+        <h2 className=" text-2xl font-bold text-rose-600 mb-4 ">
+          💸 Funding History
+        </h2>
         <Button
           onClick={handleGiveFund}
           className="flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md"
@@ -91,7 +90,6 @@ const Funding = () => {
                       "https://i.ibb.co/2N2FScx/default-user.png"
                     }
                     alt="User Avatar"
-                     
                     className="w-10 h-10 rounded-full object-cover border"
                   />
                 </td>

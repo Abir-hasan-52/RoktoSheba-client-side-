@@ -12,6 +12,7 @@ import {
   FaTimesCircle,
 } from "react-icons/fa";
 import Swal from "sweetalert2";
+import RoktoLoading from "../../Shared/RoktoLoading/RoktoLoading";
 
 const ITEMS_PER_PAGE = 5;
 
@@ -78,7 +79,7 @@ const MyDonations = () => {
 
   if (isLoading)
     return (
-      <p className="text-center text-[#be123c] font-medium py-10">Loading...</p>
+       <RoktoLoading/>
     );
   if (isError)
     return (

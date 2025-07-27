@@ -4,6 +4,7 @@ import { useParams, useNavigate } from "react-router";
 // import useAuth from "../../../Hooks/useAuth";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import Swal from "sweetalert2";
+import RoktoLoading from "../../Shared/RoktoLoading/RoktoLoading";
 
 const EditDonationRequest = () => {
   const { id } = useParams();
@@ -78,7 +79,7 @@ const EditDonationRequest = () => {
   };
 
   if (!donationData) {
-    return <div className="text-center p-6">Loading donation request...</div>;
+    return  <RoktoLoading/>;
   }
 
   return (
