@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import useAxiosSecure from "../../Hooks/useAxiosSecure";
+ 
+import useAxios from "../../Hooks/useAxios";
 
 const SearchPage = () => {
-  const axiosSecure = useAxiosSecure();
+  
+  const axiosInstance=useAxios();
 
   const [districts, setDistricts] = useState([]);
   const [upazilas, setUpazilas] = useState([]);
@@ -38,7 +40,7 @@ const SearchPage = () => {
 
   const onSubmit = async (data) => {
     try {
-      const res = await axiosSecure.get("/donors", {
+      const res = await axiosInstance.get("/donors", {
         params: {
           bloodGroup: data.bloodGroup,
           district: data.district,

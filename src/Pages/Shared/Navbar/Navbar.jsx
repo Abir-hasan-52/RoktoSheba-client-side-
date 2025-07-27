@@ -6,7 +6,7 @@ import useAuth from "../../../Hooks/useAuth";
 
 const Navbar = () => {
   const { user, logOutUser } = useAuth();
-    const navigate = useNavigate();
+  const navigate = useNavigate();
   const links = (
     <>
       <li>
@@ -36,19 +36,21 @@ const Navbar = () => {
             isActive ? "text-red-600 font-bold" : "text-gray-600"
           }
         >
-          Search Donor 
+          Search Donor
         </NavLink>
       </li>
-      <li>
-        <NavLink
-          to="/dashboard"
-          className={({ isActive }) =>
-            isActive ? "text-red-600 font-bold" : "text-gray-600"
-          }
-        >
-          DashBoard
-        </NavLink>
-      </li>
+      {user && (
+        <li>
+          <NavLink
+            to="/dashboard"
+            className={({ isActive }) =>
+              isActive ? "text-red-600 font-bold" : "text-gray-600"
+            }
+          >
+            DashBoard
+          </NavLink>
+        </li>
+      )}
       <li>
         <NavLink
           to="/blogs"
@@ -108,22 +110,47 @@ const Navbar = () => {
       </div>
       <div className="navbar-end">
         {user ? (
-          <>
-            <div className="tooltip tooltip-bottom" data-tip={user.displayName}>
+          <div className="relative group inline-block text-left">
+            {/* Avatar + Tooltip */}
+            <div className="flex items-center cursor-pointer space-x-2 group">
               <img
                 src={user.photoURL}
                 alt="User Avatar"
-                className="w-10 h-10 mr-3 rounded-full border-2 border-red-500 hover:scale-105 transition"
+                className="w-10 h-10 rounded-full border-2 border-red-500 hover:ring-2 hover:ring-red-300 transition"
               />
             </div>
-            <Button
-              onClick={handleLogout}
-              variant="outline"
-              className="hover:bg-red-100 transition"
-            >
-              Logout
-            </Button>
-          </>
+
+            {/* Dropdown */}
+            <div className="absolute right-0 mt-3 w-64 bg-white border border-red-200 rounded-xl shadow-lg opacity-0 group-hover:opacity-100 group-hover:visible invisible transition duration-200 z-50">
+              {/* User Info */}
+              <div className="px-4 py-3 bg-gradient-to-br from-red-100 to-red-50 rounded-t-xl">
+                <h4 className="font-semibold text-gray-800">
+                  {user.displayName}
+                </h4>
+                <p className="text-sm text-gray-600">{user.email}</p>
+              </div>
+
+              {/* Links */}
+              <ul className="py-2 text-sm text-gray-700">
+                <li>
+                  <Link
+                    to="/dashboard"
+                    className="block px-4 py-2 hover:bg-red-100 hover:text-red-700 transition"
+                  >
+                    🧭 Dashboard
+                  </Link>
+                </li>
+                <li>
+                  <button
+                    onClick={handleLogout}
+                    className="w-full text-left block px-4 py-2 hover:bg-red-100 hover:text-red-700 transition"
+                  >
+                    🚪 Logout
+                  </button>
+                </li>
+              </ul>
+            </div>
+          </div>
         ) : (
           <Button
             onClick={() => navigate("/login")}

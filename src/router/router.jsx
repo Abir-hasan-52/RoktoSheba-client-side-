@@ -29,6 +29,8 @@ import DashboardHome from "../Pages/Dashboard/DashboardHome/DashboardHome";
 import ProfilePage from "../Pages/Dashboard/ProfilePage/ProfilePage";
 import SearchPage from "../Pages/SearchPage/SearchPage";
 import DonationRequestDetails from "../Pages/DonationRequests/DonationRequestDetails";
+import Forbidden from "../Pages/Forbidden/Forbidden";
+import PrivateRoleRoute from "../route/PrivateRoleRoute";
 
 export const router = createBrowserRouter([
   {
@@ -47,6 +49,10 @@ export const router = createBrowserRouter([
       {
         path: "/blogs",
         Component: Blog,
+      },
+      {
+        path: "/forbidden",
+        Component: Forbidden,
       },
       {
         path: "/search",
@@ -91,7 +97,11 @@ export const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <DashboardHome></DashboardHome>,
+        element: (
+          <PrivateRoleRoute allowedRoles={["admin", "volunteer", "donor"]}>
+            <DashboardHome></DashboardHome>
+          </PrivateRoleRoute>
+        ),
       },
 
       {
@@ -104,15 +114,29 @@ export const router = createBrowserRouter([
       },
       {
         path: "allUsers",
-        Component: AllUsers,
+
+        element: (
+          <PrivateRoleRoute allowedRoles={["admin", "volunteer"]}>
+            <AllUsers />
+          </PrivateRoleRoute>
+        ),
       },
       {
         path: "allDonation",
-        Component: AllDonation,
+
+        element: (
+          <PrivateRoleRoute allowedRoles={["admin", "volunteer"]}>
+            <AllDonation />
+          </PrivateRoleRoute>
+        ),
       },
       {
         path: "content-management",
-        element: <ContentManagement></ContentManagement>,
+        element: (
+          <PrivateRoleRoute allowedRoles={["admin", "volunteer"]}>
+            <ContentManagement></ContentManagement>
+          </PrivateRoleRoute>
+        ),
       },
       {
         path: "add-blog",

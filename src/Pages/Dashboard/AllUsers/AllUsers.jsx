@@ -11,7 +11,7 @@ const AllUsers = () => {
   const [page, setPage] = useState(1);
   const [limit] = useState(10);
   const [filter, setFilter] = useState("all");
-  const [selectedUser, setSelectedUser] = useState(null);
+  const [dropdownOpen, setDropdownOpen] = useState(null); // user ID for open dropdown
 
   const { data, isLoading } = useQuery({
     queryKey: ["all-users", page, filter],
@@ -31,6 +31,9 @@ const AllUsers = () => {
     onSuccess: () => {
       queryClient.invalidateQueries(["all-users"]);
       Swal.fire("Success", "User updated successfully", "success");
+    },
+    onError: () => {
+      Swal.fire("Error", "Failed to update user", "error");
     },
   });
 
@@ -53,12 +56,11 @@ const AllUsers = () => {
 
     if (confirm.isConfirmed) {
       mutation.mutate({ id: user._id, update });
-      setSelectedUser(null);
+      setDropdownOpen(null);
     }
   };
 
   const totalPages = Math.ceil((data?.totalCount || 0) / limit);
-
   const pageNumbers = Array.from({ length: totalPages }, (_, i) => i + 1);
 
   return (
@@ -120,13 +122,52 @@ const AllUsers = () => {
                       {user.status}
                     </span>
                   </td>
-                  <td className="text-center">
+                  <td className="relative text-center">
                     <button
-                      className="btn btn-ghost"
-                      onClick={() => setSelectedUser(user)}
+                      className="btn btn-ghost btn-sm"
+                      onClick={() =>
+                        setDropdownOpen(dropdownOpen === user._id ? null : user._id)
+                      }
                     >
                       <FaEllipsisV />
                     </button>
+
+                    {dropdownOpen === user._id && (
+                      <div className="absolute z-20 right-0 mt-2 w-40 bg-white border rounded shadow-lg space-y-1 text-sm p-2">
+                        {user.status === "active" && (
+                          <button
+                            onClick={() => handleAction("block", user)}
+                            className="w-full text-left hover:bg-red-100 px-2 py-1 rounded"
+                          >
+                            Block
+                          </button>
+                        )}
+                        {user.status === "blocked" && (
+                          <button
+                            onClick={() => handleAction("unblock", user)}
+                            className="w-full text-left hover:bg-green-100 px-2 py-1 rounded"
+                          >
+                            Unblock
+                          </button>
+                        )}
+                        {user.role !== "volunteer" && (
+                          <button
+                            onClick={() => handleAction("makeVolunteer", user)}
+                            className="w-full text-left hover:bg-gray-100 px-2 py-1 rounded"
+                          >
+                            Make Volunteer
+                          </button>
+                        )}
+                        {user.role !== "admin" && (
+                          <button
+                            onClick={() => handleAction("makeAdmin", user)}
+                            className="w-full text-left hover:bg-blue-100 px-2 py-1 rounded"
+                          >
+                            Make Admin
+                          </button>
+                        )}
+                      </div>
+                    )}
                   </td>
                 </tr>
               ))}
@@ -135,7 +176,6 @@ const AllUsers = () => {
         </div>
       )}
 
-      {/* Pagination below table */}
       <div className="mt-4 flex justify-center">
         <div className="join">
           <button
@@ -163,58 +203,6 @@ const AllUsers = () => {
           </button>
         </div>
       </div>
-
-      {/* Action Modal */}
-      {selectedUser && (
-        <div className="fixed inset-0 bg-black/40 z-50 flex items-center justify-center">
-          <div className="bg-white rounded-xl p-6 w-96 shadow-lg">
-            <h3 className="text-lg font-bold text-center mb-4">
-              Manage {selectedUser.name}
-            </h3>
-            <p className="text-sm text-center mb-2">{selectedUser.email}</p>
-            <div className="space-y-2">
-              {selectedUser.status === "active" && (
-                <button
-                  className="btn btn-outline btn-error w-full"
-                  onClick={() => handleAction("block", selectedUser)}
-                >
-                  Block
-                </button>
-              )}
-              {selectedUser.status === "blocked" && (
-                <button
-                  className="btn btn-outline btn-success w-full"
-                  onClick={() => handleAction("unblock", selectedUser)}
-                >
-                  Unblock
-                </button>
-              )}
-              {selectedUser.role !== "volunteer" && (
-                <button
-                  className="btn btn-outline w-full"
-                  onClick={() => handleAction("makeVolunteer", selectedUser)}
-                >
-                  Make Volunteer
-                </button>
-              )}
-              {selectedUser.role !== "admin" && (
-                <button
-                  className="btn btn-outline btn-primary w-full"
-                  onClick={() => handleAction("makeAdmin", selectedUser)}
-                >
-                  Make Admin
-                </button>
-              )}
-              <button
-                className="btn btn-sm btn-neutral w-full mt-3"
-                onClick={() => setSelectedUser(null)}
-              >
-                Cancel
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 };

@@ -15,6 +15,7 @@ import { AiFillHome } from "react-icons/ai";
 import RoktoShebaLogo from "../Pages/Shared/RoktoShebaLogo";
 import { FaHandHoldingMedical, FaNotesMedical, FaUsers } from "react-icons/fa6";
 import useUserRole from "../Hooks/useUserRole";
+import { CgProfile } from "react-icons/cg";
 
 const DashboardLayOut = () => {
   const { role, roleLoading } = useUserRole();
@@ -201,7 +202,7 @@ const DashboardLayOut = () => {
                   : "hover:bg-red-100 rounded"
               }
             >
-              <FaDonate className="inline-block mr-2 text-lg" />
+              <CgProfile  className="inline-block mr-2 text-lg" />
               Profile
             </NavLink>
           </li>

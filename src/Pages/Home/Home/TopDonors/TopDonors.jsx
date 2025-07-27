@@ -2,15 +2,17 @@ import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import { FaTint, FaMapMarkerAlt, FaMedal } from "react-icons/fa";
 import { motion } from "framer-motion";
-import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
+ 
+import useAxios from "../../../../Hooks/useAxios";
 
 const TopDonors = () => {
-  const axiosSecure = useAxiosSecure();
+  
+  const axiosInstance=useAxios();
 
   const { data: donors = [], isLoading, isError, error } = useQuery({
     queryKey: ["randomDonors"],
     queryFn: async () => {
-      const res = await axiosSecure.get("/random-donors");
+      const res = await axiosInstance.get("/random-donors");
       return res.data;
     },
   });
