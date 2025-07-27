@@ -4,7 +4,7 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import useAuth from "../../Hooks/useAuth";
 import useAxios from "../../Hooks/useAxios";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 
 const Register = () => {
   const {
@@ -20,6 +20,7 @@ const Register = () => {
   const [profilePic, setProfilePic] = useState(""); // uploaded image URL
   const { createUser, updateUserProfile } = useAuth();
   const axiosInstance = useAxios();
+  const navigate = useNavigate();
 
   // Load districts & upazilas
   useEffect(() => {
@@ -60,6 +61,7 @@ const Register = () => {
       .then(async (result) => {
         console.log("✅ Firebase user created:", result.user);
 
+
         // ⏫ Update Firebase profile
         const userProfile = {
           displayName: data.name,
@@ -91,6 +93,7 @@ const Register = () => {
 
         const userRes = await axiosInstance.post("/users", userInfo);
         console.log("✅ MongoDB response:", userRes.data);
+        navigate('/')
 
         Swal.fire(
           "Success!",

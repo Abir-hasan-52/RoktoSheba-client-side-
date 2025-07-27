@@ -1,6 +1,8 @@
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import { FaRegCalendarAlt, FaUser } from "react-icons/fa";
+import { MdBloodtype } from "react-icons/md";
 
 const Blog = () => {
   const { data: blogs = [], isLoading } = useQuery({
@@ -11,27 +13,52 @@ const Blog = () => {
     },
   });
 
-  if (isLoading) return <p className="text-center">Loading blogs...</p>;
+  if (isLoading) return <p className="text-center py-10 text-lg">Loading blogs...</p>;
 
   return (
-    <div className="max-w-5xl mx-auto px-4 py-8">
-      <h2 className="text-3xl font-bold mb-6 text-center">📚 Our Blog</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div className="max-w-6xl mx-auto px-4 py-10">
+      <h2 className="text-4xl font-bold text-center text-red-700 mb-10 flex items-center justify-center gap-3">
+        <MdBloodtype size={50} /> RoktoSheba Blog
+      </h2>
+
+      <div className="space-y-10">
         {blogs.map((blog) => (
           <div
             key={blog._id}
-            className="bg-white shadow-lg rounded-xl overflow-hidden border hover:shadow-xl transition"
+            className="bg-white border border-red-200 shadow-md rounded-2xl overflow-hidden"
           >
             <img
               src={blog.thumbnail}
               alt={blog.title}
-              className="w-full h-56 object-cover"
+              className="w-full h-full object-cover"
             />
-            <div className="p-5">
-              <h3 className="text-xl font-bold mb-2">{blog.title}</h3>
-              <p className="text-gray-600 text-sm line-clamp-3">
-                {blog.content.replace(/<[^>]+>/g, "")}
-              </p>
+
+            <div className="p-6">
+              <h3 className="text-2xl font-bold text-red-700 mb-4">
+                {blog.title}
+              </h3>
+
+              <div className="flex justify-between text-sm text-gray-600 mb-6">
+                <div className="flex items-center gap-2">
+                  <FaUser className="text-red-500" />
+                  <span>{blog.authorEmail}</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <FaRegCalendarAlt className="text-red-500" />
+                  <span>
+                    {new Date(blog.createdAt).toLocaleDateString("en-BD", {
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
+                    })}
+                  </span>
+                </div>
+              </div>
+
+              <div
+                className="prose max-w-none prose-red prose-sm sm:prose-base"
+                dangerouslySetInnerHTML={{ __html: blog.content }}
+              />
             </div>
           </div>
         ))}
