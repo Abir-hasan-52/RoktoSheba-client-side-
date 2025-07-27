@@ -5,6 +5,7 @@ import DonationRequestsPreview from '../DonationRequestsPreview/DonationRequests
 import ContactUs from '../ContactUs/ContactUs';
 import StatsSection from '../StatsSection/StatsSection';
 import TopDonors from './TopDonors/TopDonors';
+import Testimonials from './Testimonials/Testimonials';
 
 const Home = () => {
     return (
@@ -14,6 +15,7 @@ const Home = () => {
             <StatsSection></StatsSection>
             <DonationRequestsPreview></DonationRequestsPreview>
             <TopDonors></TopDonors>
+            <Testimonials></Testimonials>
             <ContactUs></ContactUs>
         </div>
     );
