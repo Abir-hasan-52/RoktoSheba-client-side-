@@ -62,16 +62,34 @@ RoktoSheba/
 
 ## 🔐 Features
 
-- 🔒 Role-based dashboard (Admin, Donor, Volunteer)
-- 🩸 Request and manage blood donations
-- 🔍 Search donors by blood group, district, and upazila
-- 📃 Blog and content management system (CMS)
-- 💳 Stripe-based donation/funding system
-- 🧑‍💼 Admin dashboard for managing users, blogs, and donations
-- 📈 Data statistics for admins (users, donations, funding)
-- 🧾 JWT protected routes & Firebase secured auth
-- 🌐 Fully responsive UI across all screen sizes
+✨ Features
+🔒 Role-Based Access Control: Separate dashboards for Admins, Donors, and Volunteers.
 
+🩸 Blood Donation Requests: Donors can request, edit,  and cancel blood donations.
+
+🔍 Advanced Donor Search: Find donors by blood group, district, and upazila using JSON location data.
+
+📄 Dynamic Blog Management: Admins can add, publish, or draft blog articles using a rich text editor (Jodit).
+
+📊 Admin Statistics: View real-time metrics on users, donations, and funding progress.
+
+💳 Stripe Integration: Accept secure online donations/funding via Stripe payment gateway.
+
+✅ JWT Secured APIs: Backend protected with Firebase JWT for authenticated access.
+
+🔐 Firebase Authentication: Seamless login system with Google and email/password support.
+
+ 
+
+💬 User Feedback with SweetAlert: Friendly alerts and confirmations for user actions.
+
+📚 Volunteer Activity Logs: Volunteers can view and track requests they’ve participated in.
+
+✏️ Update Donor Profile: Donors can update their blood group, availability, and personal info.
+
+📅 Donation History: Donors and admins can view previous donation events by status.
+
+🌍 District-wise Coverage: Covers all 64 districts of Bangladesh.
 ---
 
 ## 🚀 Getting Started
