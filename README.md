@@ -24,7 +24,7 @@
 - Firebase Authentication & Hosting
 
 ### Backend
-- Node.js
+ 
 - Express.js
 - MongoDB
 - JSON Web Token (JWT)
@@ -32,6 +32,13 @@
 - Stripe (Payment gateway)
 
 ---
+
+
+## 🔑 Admin Credentials
+
+- **Email**: `abirhasan5208@gmail.com`
+- **Password**: `123456`
+
 
 ## 📁 Project Structure
 
