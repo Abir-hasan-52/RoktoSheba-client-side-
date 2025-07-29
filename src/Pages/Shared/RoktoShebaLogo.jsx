@@ -5,7 +5,7 @@ import { Link } from "react-router";
 const RoktoShebaLogo = () => {
   return (
     <Link to="/">
-      <div className="flex justify-center items-center  ">
+      <div className="flex justify-center items-center pl-2">
         <img className="w-[60px] rounded-full" src={logo} alt="" />
         <h1 className="text-3xl font-bold text-red-600 tracking-wide drop-shadow-md">
           Rokto<span className="text-gray-900">Sheba</span>

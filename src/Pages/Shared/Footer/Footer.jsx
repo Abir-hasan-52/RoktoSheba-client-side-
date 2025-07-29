@@ -57,7 +57,7 @@ const Footer = () => {
             </li>
             <li>
               <Link
-                to="/donationRequests"
+                to="/donation-requests"
                 className="hover:text-white transition"
               >
                 Donation Requests
@@ -69,13 +69,13 @@ const Footer = () => {
               </Link>
             </li>
             <li>
-              <Link to="/funding" className="hover:text-white transition">
+              <Link to="/dashboard/funding" className="hover:text-white transition">
                 Funding
               </Link>
             </li>
             <li>
-              <Link to="/contact" className="hover:text-white transition">
-                Contact Us
+              <Link to="/search" className="hover:text-white transition">
+                Search Donor
               </Link>
             </li>
           </ul>

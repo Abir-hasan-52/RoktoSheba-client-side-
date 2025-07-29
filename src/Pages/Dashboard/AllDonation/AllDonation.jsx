@@ -17,7 +17,7 @@ import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 // import { img } from "framer-motion/client";
 import { useNavigate } from "react-router";
 import useUserRole from "../../../Hooks/useUserRole";
-
+import RoktoLoading from "../../Shared/RoktoLoading/RoktoLoading";
 
 const ITEMS_PER_PAGE = 5;
 const MySwal = withReactContent(Swal);
@@ -27,7 +27,7 @@ const AllDonation = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const [filterStatus, setFilterStatus] = useState("all");
   const navigate = useNavigate();
-  const {role}=useUserRole();
+  const { role } = useUserRole();
 
   // 👉 Fetch Donation Requests
   const {
@@ -190,10 +190,7 @@ const AllDonation = () => {
     }
   };
 
-  if (isLoading || donorsLoading)
-    return (
-      <p className="text-center text-[#be123c] font-medium py-10">Loading...</p>
-    );
+  if (isLoading || donorsLoading) return <RoktoLoading />;
 
   if (isError || donorsError)
     return (
@@ -331,7 +328,6 @@ const AllDonation = () => {
                           ? "Donor Already Assigned"
                           : "Assign Donor"
                       }
-                     
                       className={`btn btn-sm btn-outline ${
                         donation.status !== "pending" || donation.assignedDonor
                           ? "btn-disabled text-gray-400 cursor-not-allowed"
@@ -339,7 +335,7 @@ const AllDonation = () => {
                       }`}
                       onClick={() => handleAssignDonor(donation._id)}
                       disabled={
-                         role !== "admin"||
+                        role !== "admin" ||
                         donation.status !== "pending" ||
                         !!donation.assignedDonor
                       }
