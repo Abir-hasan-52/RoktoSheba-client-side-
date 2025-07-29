@@ -300,7 +300,7 @@ const AllDonation = () => {
                       <>
                         <button
                           title="Mark Done"
-                          disabled={role !== "admin"}
+                          // disabled={role !== "admin"}
                           className="btn btn-sm btn-success"
                           onClick={() =>
                             handleStatusUpdate(donation._id, "done")
@@ -310,7 +310,7 @@ const AllDonation = () => {
                         </button>
                         <button
                           title="Cancel"
-                          disabled={role !== "admin"}
+                          // disabled={role !== "admin"}
                           className="btn btn-sm btn-error"
                           onClick={() =>
                             handleStatusUpdate(donation._id, "canceled")
@@ -335,7 +335,7 @@ const AllDonation = () => {
                       }`}
                       onClick={() => handleAssignDonor(donation._id)}
                       disabled={
-                        role !== "admin" ||
+                        // role !== "admin" ||
                         donation.status !== "pending" ||
                         !!donation.assignedDonor
                       }
@@ -346,7 +346,7 @@ const AllDonation = () => {
                     {donation.donorEmail && (
                       <button
                         title="View Donor Info"
-                        disabled={role !== "admin"}
+                        // disabled={role !== "admin"}
                         className="btn btn-sm btn-outline btn-accent"
                         onClick={() => handleViewDonor(donation.donorEmail)}
                       >

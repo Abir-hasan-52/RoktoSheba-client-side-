@@ -4,7 +4,6 @@ import RoktoShebaLogo from "../RoktoShebaLogo";
 import Button from "../Button/Button";
 import useAuth from "../../../Hooks/useAuth";
 
-
 const Navbar = () => {
   const { user, logOutUser } = useAuth();
   const navigate = useNavigate();
@@ -44,16 +43,28 @@ const Navbar = () => {
         </NavLink>
       </li>
       {user && (
-        <li>
-          <NavLink
-            to="/dashboard"
-            className={({ isActive }) =>
-              isActive ? "text-red-600 font-bold" : "text-gray-600"
-            }
-          >
-            Dashboard
-          </NavLink>
-        </li>
+        <>
+          {/* <li>
+            <NavLink
+              to="/dashboard"
+              className={({ isActive }) =>
+                isActive ? "text-red-600 font-bold" : "text-gray-600"
+              }
+            >
+              Dashboard
+            </NavLink>
+          </li> */}
+          <li>
+            <NavLink
+              to="/dashboard/funding"
+              className={({ isActive }) =>
+                isActive ? "text-red-600 font-bold" : "text-gray-600"
+              }
+            >
+              Funding
+            </NavLink>
+          </li>
+        </>
       )}
       <li>
         <NavLink
@@ -161,7 +172,6 @@ const Navbar = () => {
                       onClick={handleLogout}
                       className="w-full text-left px-4 py-2 hover:bg-red-100 hover:text-red-700 transition"
                     >
-                      
                       Logout
                     </button>
                   </li>
