@@ -48,8 +48,8 @@ RoktoSheba is a comprehensive blood donation management platform designed to con
 ## 📸 Screenshots
 
 <div align="center">
-  <img src="https://i.ibb.co/screenshot1.png" alt="RoktoSheba Homepage" width="45%" />
-  <img src="https://i.ibb.co/screenshot2.png" alt="Dashboard" width="45%" />
+  <img src="https://i.ibb.co/fzMdN7dP/roktosheba-f14d4-web-app.png" alt="RoktoSheba Homepage" width="45%" />
+  <img src="https://i.ibb.co/qMgspTyz/roktosheba-f14d4-web-app-1.png" alt="Dashboard" width="45%" />
 </div>
 
 ---
@@ -172,12 +172,12 @@ roktosheba-server/
 ## 🔑 Test Credentials
 
 ### Admin Access
-- **Email:** `admin@roktosheba.com`
-- **Password:** `admin123`
+- **Email:** `abirhasan5208@gmail.com`
+- **Password:** `123456`
 
 ### Sample Donor Account
-- **Email:** `donor@roktosheba.com`
-- **Password:** `donor123`
+- **Email:** `abir@gmail.com`
+- **Password:** `123456`
 
 ---
 
@@ -222,21 +222,14 @@ roktosheba-server/
 
 ---
 
-## 🤝 Contributing
+ 
 
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
----
 
 ## 🔗 Links
 
 - **Live Site:** [https://roktosheba-f14d4.web.app/](https://roktosheba-f14d4.web.app/)
-- **Client Repository:** [GitHub Client Repo](https://github.com/yourusername/roktosheba-client)
-- **Server Repository:** [GitHub Server Repo](https://github.com/yourusername/roktosheba-server)
+- **Client Repository:** [GitHub Client Repo](https://github.com/Abir-hasan-52/roktosheba-client-side--)
+- **Server Repository:** [GitHub Server Repo](https://github.com/Abir-hasan-52/roktosheba-serve-side)
 
 ---
 
@@ -245,7 +238,7 @@ roktosheba-server/
 **Abir Hasan Mahmud**
 - Email: abirhasan5208@gmail.com
 - LinkedIn: [linkedin.com/in/ah-abir](https://linkedin.com/in/ah-abir)
-- GitHub: [github.com/yourusername](https://github.com/yourusername)
+- GitHub: [github.com/yourusername](https://github.com/Abir-hasan-52)
 
 ---
 
