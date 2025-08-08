@@ -228,7 +228,7 @@ roktosheba-server/
 ## 🔗 Links
 
 - **Live Site:** [https://roktosheba-f14d4.web.app/](https://roktosheba-f14d4.web.app/)
-- **Client Repository:** [GitHub Client Repo](https://github.com/Abir-hasan-52/roktosheba-client-side--)
+- **Client Repository:** [GitHub Client Repo](https://github.com/Abir-hasan-52/roktosheba-client-side-)
 - **Server Repository:** [GitHub Server Repo](https://github.com/Abir-hasan-52/roktosheba-serve-side)
 
 ---
@@ -242,11 +242,6 @@ roktosheba-server/
 
 ---
 
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
----
 
 ## 🙏 Acknowledgments
 
