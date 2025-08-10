@@ -229,7 +229,7 @@ roktosheba-server/
 
 - **Live Site:** [https://roktosheba-f14d4.web.app/](https://roktosheba-f14d4.web.app/)
 - **Client Repository:** [GitHub Client Repo](https://github.com/Abir-hasan-52/roktosheba-client-side-)
-- **Server Repository:** [GitHub Server Repo](https://github.com/Abir-hasan-52/roktosheba-serve-side)
+- **Server Repository:** [GitHub Server Repo](https://github.com/Abir-hasan-52/RoktoSheba-server-side)
 
 ---
 
