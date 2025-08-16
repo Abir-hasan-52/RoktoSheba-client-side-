@@ -7,6 +7,7 @@ import StatsSection from '../StatsSection/StatsSection';
 import TopDonors from './TopDonors/TopDonors';
 import Testimonials from './Testimonials/Testimonials';
 import BloodCompatibilityTable from '../BloodCompatibilityTable/BloodCompatibilityTable';
+import FAQsSection from '../FAQsSection/FAQsSection';
 
 const Home = () => {
     return (
@@ -19,6 +20,7 @@ const Home = () => {
             <TopDonors></TopDonors>
             <BloodCompatibilityTable/>
             <Testimonials></Testimonials>
+            <FAQsSection/>
             <ContactUs></ContactUs>
 
         </div>
