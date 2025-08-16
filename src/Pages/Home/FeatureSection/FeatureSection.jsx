@@ -31,7 +31,7 @@ const FeatureSection = () => {
           {features.map(({ icon, title, description }, idx) => (
             <div
               key={idx}
-              className="bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition cursor-default text-center"
+              className="bg-white p-8 rounded-xl shadow-md hover:shadow-lg  cursor-default text-center hover:scale-105 transition duration-300"
             >
               <div className="mb-6">{icon}</div>
               <h3 className="text-xl font-semibold mb-3 text-red-800">

@@ -7,7 +7,7 @@ const About = () => {
     "https://i.ibb.co.com/0jZXgkPH/Black-and-White-Red-Gradient-Syria-and-Turkey-Earthquake-Donation-Instagram-Post-1.png";
   return (
     <section className="bg-red-50 py-16 px-4 md:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-10">
+      <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center gap-10">
         {/* Left - Image */}
         <div className="flex-1">
           <img

@@ -31,6 +31,7 @@ import SearchPage from "../Pages/SearchPage/SearchPage";
 import DonationRequestDetails from "../Pages/DonationRequests/DonationRequestDetails";
 import Forbidden from "../Pages/Forbidden/Forbidden";
 import PrivateRoleRoute from "../route/PrivateRoleRoute";
+import BlogDetails from "../Pages/Blog/BlogDetails";
 
 export const router = createBrowserRouter([
   {
@@ -51,6 +52,10 @@ export const router = createBrowserRouter([
         Component: Blog,
       },
       {
+        path:"/blogs/:id",
+        element:<BlogDetails/>
+      }
+      ,{
         path: "/forbidden",
         Component: Forbidden,
       },

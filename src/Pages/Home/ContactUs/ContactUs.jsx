@@ -55,7 +55,7 @@ const ContactUs = () => {
       <h2 className="text-3xl font-bold text-red-700 mb-8 pb-5 text-center">
         Contact Us
       </h2>
-      <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-10">
+      <div className="max-w-7xl px-6 mx-auto grid md:grid-cols-2 gap-10">
         {/* Left Side Info (unchanged) */}
         <aside className="text-center md:text-left">
           <h3 className="text-red-600 font-semibold">Get in Touch</h3>

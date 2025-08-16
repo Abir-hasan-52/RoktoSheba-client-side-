@@ -43,7 +43,7 @@ console.log(donors);
           {donors.map((donor, idx) => (
             <motion.div
               key={donor._id}
-              className="relative bg-white rounded-2xl shadow-lg p-6 text-center border-t-[6px] border-red-500 hover:shadow-2xl transition"
+              className="relative bg-white rounded-2xl shadow-lg p-6 text-center border-t-[6px] border-red-500 hover:shadow-2xl   hover:scale-105 transition duration-300"
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: idx * 0.2 }}
