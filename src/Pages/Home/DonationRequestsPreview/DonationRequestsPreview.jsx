@@ -48,23 +48,24 @@ const DonationRequestsPreview = () => {
       {sampleRequests.length === 0 ? (
         <p className="text-center text-gray-500">No donation requests found.</p>
       ) : (
-        <div className="overflow-x-auto">
-          <table className="min-w-full bg-white rounded-lg shadow">
-            <thead className="bg-red-600 text-white">
+          
+        <div className="overflow-x-auto rounded-xl shadow-lg border border-red-200">
+          <table className="min-w-full bg-white rounded-xl shadow">
+            <thead className="bg-red-600 text-white ">
               <tr>
                 <th className="py-3 px-4 text-left">Recipient</th>
                 <th className="py-3 px-4 text-left">Location</th>
                 <th className="py-3 px-4 text-left">Blood Group</th>
                 <th className="py-3 px-4 text-left">Date</th>
                 <th className="py-3 px-4 text-left">Status</th>
-                <th className="py-3 px-4 text-left">Action</th>
+                {/* <th className="py-3 px-4 text-left">Action</th> */}
               </tr>
             </thead>
             <tbody>
               {sampleRequests.map((req) => (
                 <tr
                   key={req.id}
-                  className="border-b hover:bg-red-50 transition cursor-pointer"
+                  className="border-b  hover:bg-red-50 transition cursor-pointer"
                 >
                   <td className="py-3 px-4">{req.recipientName}</td>
                   <td className="py-3 px-4">
@@ -81,14 +82,14 @@ const DonationRequestsPreview = () => {
                       {req.status}
                     </span>
                   </td>
-                  <td className="py-3 px-4">
+                  {/* <td className="py-3 px-4">
                     <Link
                       to={`/donation-requests/${req.id}`}
                       className="text-red-600 hover:underline font-semibold"
                     >
                       View
                     </Link>
-                  </td>
+                  </td> */}
                 </tr>
               ))}
             </tbody>
