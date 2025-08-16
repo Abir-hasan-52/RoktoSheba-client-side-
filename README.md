@@ -1,18 +1,25 @@
 # 🩸 RoktoSheba - Blood Donation Management System
 
-**RoktoSheba** is a full-stack web application designed to streamline blood donation services across Bangladesh. It connects donors, recipients, volunteers, and administrators under one secure and user-friendly platform. Built using the MERN stack with Firebase Authentication and Stripe for payment integration.
+## 🔍 Project Overview
+
+RoktoSheba is a comprehensive blood donation management platform designed to connect donors with recipients efficiently across Bangladesh. The platform enables users to request, manage, and track blood donations seamlessly through role-based dashboards, ensuring timely medical assistance for those in critical need.
 
 ---
 
-## 🌐 Live Website
+## 🌐 Live Project
 
-🔗 [https://roktosheba.web.app](https://roktosheba-f14d4.web.app/)
+🔗 **Live Demo:** [https://roktosheba-f14d4.web.app/](https://roktosheba-f14d4.web.app/)
 
 ---
 
-## 🛠 Technology Stack
+## 🛠 Technologies Used
 
 ### Frontend
+![React](https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
+![DaisyUI](https://img.shields.io/badge/DaisyUI-5A0EF8?style=for-the-badge&logo=daisyui&logoColor=white)
+![Firebase](https://img.shields.io/badge/Firebase-FFCA28?style=for-the-badge&logo=firebase&logoColor=black)
+
 - React.js
 - React Router
 - Tailwind CSS
@@ -24,104 +31,227 @@
 - Firebase Authentication & Hosting
 
 ### Backend
- 
+![Node.js](https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white)
+![Express.js](https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white)
+![MongoDB](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white)
+![JWT](https://img.shields.io/badge/JWT-000000?style=for-the-badge&logo=jsonwebtokens&logoColor=white)
+
+- Node.js
 - Express.js
 - MongoDB
 - JSON Web Token (JWT)
 - Firebase Admin SDK
-- Stripe (Payment gateway)
+- Stripe (Payment Gateway)
 
 ---
 
+## 📸 Screenshots
 
-## 🔑 Admin Credentials
+<div align="center">
+  <img src="https://i.ibb.co/fzMdN7dP/roktosheba-f14d4-web-app.png" alt="RoktoSheba Homepage" width="45%" />
+  <img src="https://i.ibb.co/qMgspTyz/roktosheba-f14d4-web-app-1.png" alt="Dashboard" width="45%" />
+</div>
 
-- **Email**: `abirhasan5208@gmail.com`
-- **Password**: `123456`
+---
 
+## 🚀 Core Features
+
+### 🔐 Authentication & Authorization
+- **Multi-role System:** Admin, Donor, and Volunteer dashboards
+- **Firebase Authentication:** Google Sign-in and Email/Password
+- **JWT Security:** Protected API routes with token verification
+
+### 🩸 Blood Donation Management
+- **Donation Requests:** Create, edit, and cancel blood donation requests
+- **Advanced Search:** Find donors by blood group, district, and upazila
+- **Real-time Updates:** Live donation status tracking
+- **Request Management:** Donors can respond to and manage requests
+
+### 📊 Admin Dashboard
+- **User Management:** Manage donors, volunteers, and admins
+- **Statistics:** Real-time dashboard with donation metrics
+- **Blog System:** Publish health awareness articles with rich text editor
+- **Content Control:** Manage platform content and announcements
+
+### 💳 Payment Integration
+- **Stripe Gateway:** Secure online donation processing
+- **Multiple Payment Methods:** Card payments and digital wallets
+- **Transaction History:** Track all donations and payments
+
+### 🌍 Location Services
+- **Bangladesh Districts:** Complete district and upazila database
+- **Location-based Search:** Find donors in specific areas
+- **Geolocation Support:** Auto-detect user location
+
+---
+
+## 🔧 Installation & Setup
+
+### Prerequisites
+- Node.js (v14 or higher)
+- MongoDB database
+- Firebase project setup
+- Stripe account
+
+### Clone the Repository
+```bash
+# Clone client-side
+git clone https://github.com/yourusername/roktosheba-client.git
+cd roktosheba-client
+
+# Clone server-side (in a separate directory)
+git clone https://github.com/yourusername/roktosheba-server.git
+cd roktosheba-server
+```
+
+### Backend Setup
+```bash
+# Install dependencies
+npm install
+
+# Create .env file with the following variables:
+DB_URI=your_mongodb_connection_string
+JWT_SECRET=your_jwt_secret
+FIREBASE_ADMIN_SDK_KEY=your_firebase_admin_key
+STRIPE_SECRET_KEY=your_stripe_secret_key
+PORT=5000
+
+# Start the server
+npm run dev
+```
+
+### Frontend Setup
+```bash
+# Install dependencies
+npm install
+
+# Create .env.local file with:
+VITE_FIREBASE_API_KEY=your_firebase_api_key
+VITE_FIREBASE_AUTH_DOMAIN=your_firebase_auth_domain
+VITE_FIREBASE_PROJECT_ID=your_firebase_project_id
+VITE_FIREBASE_STORAGE_BUCKET=your_firebase_storage_bucket
+VITE_FIREBASE_MESSAGING_SENDER_ID=your_messaging_sender_id
+VITE_FIREBASE_APP_ID=your_firebase_app_id
+VITE_STRIPE_PUBLISHABLE_KEY=your_stripe_publishable_key
+
+# Start the development server
+npm run dev
+```
+
+### Access the Application
+- Frontend: `http://localhost:5173`
+- Backend: `http://localhost:5000`
+
+---
 
 ## 📁 Project Structure
 
+```
+roktosheba-client/
+├── src/
+│   ├── components/          # Reusable UI components
+│   ├── pages/              # Application pages
+│   ├── hooks/              # Custom React hooks
+│   ├── context/            # React context providers
+│   ├── utils/              # Helper functions
+│   └── assets/             # Static assets
+├── public/                 # Public assets
+└── package.json
 
-RoktoSheba/
-├── client/
-│ └── src/
-│ ├── components/
-│ ├── layouts/
-│ ├── pages/
-│ ├── routes/
-│ ├── hooks/
-│ └── utils/
-├── server/
-│ ├── controllers/
-│ ├── middleware/
-│ ├── models/
-│ └── routes/
-└── .env
+roktosheba-server/
+├── controllers/            # Route controllers
+├── models/                # MongoDB models
+├── routes/                # API routes
+├── middleware/            # Custom middleware
+├── utils/                 # Helper functions
+└── server.js              # Main server file
+```
+
 ---
 
-## 🔐 Features
+## 🔑 Test Credentials
 
-✨ Features
-🔒 Role-Based Access Control: Separate dashboards for Admins, Donors, and Volunteers.
+### Admin Access
+- **Email:** `abirhasan5208@gmail.com`
+- **Password:** `123456`
 
-🩸 Blood Donation Requests: Donors can request, edit,  and cancel blood donations.
+### Sample Donor Account
+- **Email:** `abir@gmail.com`
+- **Password:** `123456`
 
-🔍 Advanced Donor Search: Find donors by blood group, district, and upazila using JSON location data.
+---
 
-📄 Dynamic Blog Management: Admins can add, publish, or draft blog articles using a rich text editor (Jodit).
+## 🤝 API Endpoints
 
-📊 Admin Statistics: View real-time metrics on users, donations, and funding progress.
+### Authentication
+- `POST /api/auth/register` - User registration
+- `POST /api/auth/login` - User login
+- `GET /api/auth/profile` - Get user profile
 
-💳 Stripe Integration: Accept secure online donations/funding via Stripe payment gateway.
+### Donations
+- `GET /api/donations` - Get all donation requests
+- `POST /api/donations` - Create donation request
+- `PUT /api/donations/:id` - Update donation request
+- `DELETE /api/donations/:id` - Delete donation request
 
-✅ JWT Secured APIs: Backend protected with Firebase JWT for authenticated access.
+### Users
+- `GET /api/users` - Get all users (Admin only)
+- `PUT /api/users/:id/role` - Update user role (Admin only)
+- `GET /api/users/stats` - Get user statistics (Admin only)
 
-🔐 Firebase Authentication: Seamless login system with Google and email/password support.
+---
+
+## 🌟 Key Challenges Solved
+
+1. **Role-based Access Control:** Implemented secure role management with JWT
+2. **Real-time Data:** Used React Query for efficient data fetching and caching
+3. **Payment Integration:** Successfully integrated Stripe for secure transactions
+4. **Location Services:** Implemented comprehensive Bangladesh location database
+5. **Rich Text Editing:** Integrated Jodit editor for blog content management
+
+---
+
+## 🚀 Future Enhancements
+
+- [ ] Mobile app development (React Native)
+- [ ] SMS notifications for urgent requests
+- [ ] Blood bank inventory management
+- [ ] Multi-language support (Bengali/English)
+- [ ] Advanced analytics dashboard
+- [ ] Social media integration
+
+---
 
  
 
-💬 User Feedback with SweetAlert: Friendly alerts and confirmations for user actions.
 
-📚 Volunteer Activity Logs: Volunteers can view and track requests they’ve participated in.
+## 🔗 Links
 
-✏️ Update Donor Profile: Donors can update their blood group, availability, and personal info.
-
-📅 Donation History: Donors and admins can view previous donation events by status.
-
-🌍 District-wise Coverage: Covers all 64 districts of Bangladesh.
----
-
-## 🚀 Getting Started
-✅ Project Highlights
-1.Firebase Auth Integration
-
-2.Role-Based Dashboard (Admin, Donor, Volunteer)
-
-3.Protected API using JWT
-
-4.Stripe for secure payments
-
-5.React Query used for all GET requests
-
-6.Form validation and alerts using SweetAlert2
-
-7.Responsive and mobile-friendly UI
-
-8.No lorem ipsum content; all data is contextual and meaningful
-
-📸 Dashboard Overview
-Admin: Manage users, donations, blogs, and funding
-
-Donor: Request, update, and track donation history
-
-Volunteer: Assist with donation fulfillment
-
-
+- **Live Site:** [https://roktosheba-f14d4.web.app/](https://roktosheba-f14d4.web.app/)
+- **Client Repository:** [GitHub Client Repo](https://github.com/Abir-hasan-52/roktosheba-client-side-)
+- **Server Repository:** [GitHub Server Repo](https://github.com/Abir-hasan-52/RoktoSheba-server-side)
 
 ---
 
-✅ You can now copy and paste the whole markdown into your `README.md` file — no extra setup needed.
+## 📞 Contact
 
-Would you like a downloadable file or want to preview it rendered before final upload?
+**Abir Hasan Mahmud**
+- Email: abirhasan5208@gmail.com
+- LinkedIn: [linkedin.com/in/ah-abir](https://linkedin.com/in/ah-abir)
+- GitHub: [github.com/yourusername](https://github.com/Abir-hasan-52)
 
+---
+
+
+## 🙏 Acknowledgments
+
+- Thanks to all blood donors who inspire this project
+- Firebase team for excellent authentication services
+- Stripe for secure payment processing
+- Tailwind CSS and DaisyUI for beautiful UI components
+
+---
+
+<div align="center">
+  <h3>⭐ If you found this project helpful, please give it a star! ⭐</h3>
+</div>
