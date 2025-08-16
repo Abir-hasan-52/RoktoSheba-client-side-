@@ -96,7 +96,7 @@ const AdminDashboardHome = () => {
   return (
     <div className="p-4 space-y-6">
       <Welcome
-        user={{ displayName: user?.displayName, role: role }}
+        users={{ displayName: user?.displayName, role: role }}
         customMessage={getRoleMessage(role)}
       />
 

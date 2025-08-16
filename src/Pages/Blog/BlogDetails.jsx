@@ -3,6 +3,7 @@ import { useParams } from "react-router";
 import { useQuery } from "@tanstack/react-query";
 import useAxios from "../../Hooks/useAxios";
 import RoktoLoading from "../Shared/RoktoLoading/RoktoLoading";
+import Button from "../Shared/Button/Button";
 // adjust path
 
 const BlogDetails = () => {
@@ -44,7 +45,7 @@ const BlogDetails = () => {
         <img
           src={blog.thumbnail}
           alt={blog.title}
-          className="w-full max-w-3xl mx-auto h-auto rounded-2xl shadow-lg object-cover mb-8"
+          className="w-full max-w-7xl mx-auto h-auto rounded-2xl shadow-lg object-cover mb-8"
         />
       </div>
 
@@ -79,6 +80,15 @@ const BlogDetails = () => {
         className="prose max-w-full text-gray-700"
         dangerouslySetInnerHTML={{ __html: blog.content }}
       ></div>
+        {/* Back to Blogs Button */}
+        <div className="mt-8">
+            <Button
+                onClick={() => window.history.back()}
+                className="btn btn-secondary"
+            >
+                Back to Blogs
+            </Button>
+            </div>
     </div>
   );
 };

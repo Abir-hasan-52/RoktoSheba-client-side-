@@ -35,7 +35,7 @@ const DonorDashboardHome = () => {
   return (
     <div className="space-y-6">
       <Welcome
-        user={{ displayName: user?.displayName, role: "donor" }}
+        users={{ displayName: user?.displayName, role: "donor" }}
         customMessage="Thank you for being a lifesaver! ❤️"
       />
 

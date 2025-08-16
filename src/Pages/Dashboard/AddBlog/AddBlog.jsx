@@ -5,10 +5,13 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import JoditEditor from "jodit-react";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
+import useAuth from "../../../Hooks/useAuth";
 
 const AddBlog = () => {
   const axiosSecure = useAxiosSecure();
   const navigate = useNavigate();
+  const {user}= useAuth();
+  const userEmail = user?.email;
   const queryClient = useQueryClient();
 
   const editor = useRef(null);
@@ -49,7 +52,7 @@ const AddBlog = () => {
       Swal.fire(`"Error", "Failed to upload image", ${error}`);
     }
   };
-
+  // Mutation to create a new blog
   const { mutateAsync: createBlog } = useMutation({
     mutationFn: (newBlog) => axiosSecure.post("/blogs", newBlog),
     onSuccess: () => {
@@ -66,7 +69,7 @@ const AddBlog = () => {
       return;
     }
 
-    createBlog({ title, thumbnail, content, authorEmail: "admin@example.com" });
+    createBlog({ title, thumbnail, content, authorEmail: userEmail });
   };
 
   return (

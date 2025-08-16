@@ -114,7 +114,7 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto  flex items-center w-full pr-2 ">
         <div className="navbar-start">
           <div className="dropdown">
-            <button tabIndex={0} className="btn btn-ghost lg:hidden">
+            <button tabIndex={0} className="btn mr-3 pl-1 btn-ghost lg:hidden">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-5 w-5"
