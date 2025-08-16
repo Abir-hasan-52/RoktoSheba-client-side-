@@ -42,6 +42,16 @@ const Navbar = () => {
           Search Donor
         </NavLink>
       </li>
+      <li>
+        <NavLink
+          to="/about"
+          className={({ isActive }) =>
+            isActive ? "text-red-600 font-bold" : "text-gray-600"
+          }
+        >
+          About Us
+        </NavLink>
+      </li>
       {user && (
         <>
           {/* <li>
