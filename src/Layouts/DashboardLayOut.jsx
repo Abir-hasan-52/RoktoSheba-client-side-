@@ -20,11 +20,11 @@ import { CgProfile } from "react-icons/cg";
 const DashboardLayOut = () => {
   const { role, roleLoading } = useUserRole();
   return (
-    <div className="drawer lg:drawer-open">
+    <div className="drawer lg:drawer-open ">
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
       <div className="drawer-content flex flex-col ">
         {/* Navbar */}
-        <div className="navbar bg-base-300 w-full lg:hidden">
+        <div className="navbar bg-base-300 w-full lg:hidden sticky top-0 z-50">
           <div className="flex-none  ">
             <label
               htmlFor="my-drawer-2"

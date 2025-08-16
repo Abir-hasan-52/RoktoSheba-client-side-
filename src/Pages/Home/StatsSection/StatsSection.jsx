@@ -41,7 +41,7 @@ const statsData = [
 const StatsSection = () => {
   return (
     <section className="py-12 px-4 bg-white">
-      <div className="max-w-6xl mx-auto text-center">
+      <div className="max-w-7xl mx-auto text-center">
         <h2 className="text-3xl font-bold mb-10 text-red-700 uppercase">
           Our Life-Saving Impact
         </h2>

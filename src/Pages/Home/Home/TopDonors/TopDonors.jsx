@@ -34,7 +34,7 @@ console.log(donors);
 
   return (
     <section className="py-12 bg-gradient-to-br from-red-100 via-white to-red-50">
-      <div className="max-w-6xl mx-auto px-4">
+      <div className="max-w-7xl mx-auto px-4">
         <h2 className="text-4xl font-bold text-center text-red-700 mb-10">
           🏆 Top Donors of the Month
         </h2>

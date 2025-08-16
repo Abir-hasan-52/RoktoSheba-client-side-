@@ -200,7 +200,7 @@ const AllDonation = () => {
     );
 
   return (
-    <div className="p-6 max-w-7xl mx-auto">
+    <div className="p-6">
       <h2 className="text-3xl font-bold text-center mb-6 text-[#be123c]">
         All Blood Donation Requests
       </h2>
