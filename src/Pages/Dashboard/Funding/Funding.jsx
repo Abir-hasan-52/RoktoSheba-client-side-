@@ -49,7 +49,7 @@ const Funding = () => {
   }
 
   return (
-    <div className="p-4 sm:p-6 space-y-6">
+    <div className="p-4 sm:p-6 space-y-6 bg-gray-50">
       {/* Header */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <h2 className="text-2xl font-bold text-red-700 mb-4">
@@ -64,7 +64,7 @@ const Funding = () => {
       </div>
 
       {/* Table */}
-      <div className="overflow-x-auto border-x border-red-200  rounded-lg shadow-sm">
+      <div className="overflow-x-auto border-x border-red-200 bg-white rounded-lg shadow-xl">
         <table className="min-w-full text-left text-sm">
           <thead className="bg-rose-600 text-white uppercase tracking-wide text-xs">
             <tr>
@@ -79,7 +79,9 @@ const Funding = () => {
             {fundings.map((fund, i) => (
               <tr
                 key={fund._id || i}
-                className="border-b hover:bg-rose-50 transition"
+                className={`  hover:bg-red-50 ${
+                  i % 2 === 0 ? "bg-white" : "bg-red-50/40"
+                }`}
               >
                 {/* Serial */}
                 <td className="p-3 font-medium text-gray-700">

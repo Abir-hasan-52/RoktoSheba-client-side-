@@ -65,7 +65,7 @@ const AllUsers = () => {
   const pageNumbers = Array.from({ length: totalPages }, (_, i) => i + 1);
 
   return (
-    <div className="p-4">
+    <div className="p-4 bg-gray-50">
       <h2 className="text-2xl font-bold mb-4 text-center">All Users</h2>
 
       <div className="mb-4 flex justify-between items-center flex-wrap gap-2">
@@ -86,9 +86,9 @@ const AllUsers = () => {
       {isLoading ? (
         <RoktoLoading></RoktoLoading>
       ) : (
-        <div className="overflow-x-auto shadow rounded-lg">
+        <div className="overflow-x-auto   rounded-lg shadow-xl">
           <table className="table w-full bg-white">
-            <thead className="bg-gray-100 text-gray-700 text-sm uppercase">
+            <thead className="bg-red-600 text-white text-sm uppercase">
               <tr>
                 <th>Avatar</th>
                 <th>Name</th>
@@ -99,8 +99,11 @@ const AllUsers = () => {
               </tr>
             </thead>
             <tbody>
-              {data?.users?.map((user) => (
-                <tr key={user._id}>
+              {data?.users?.map((user,index) => (
+                <tr key={user._id} 
+                className={`  hover:bg-red-50 ${
+                  index % 2 === 0 ? "bg-white" : "bg-red-50/40"
+                }`}>
                   <td>
                     <div className="avatar">
                       <div className="w-10 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">

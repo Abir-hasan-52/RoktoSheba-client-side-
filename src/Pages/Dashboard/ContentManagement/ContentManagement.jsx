@@ -85,7 +85,7 @@ const ContentManagement = () => {
   };
 
   return (
-    <div className="p-6">
+    <div className="p-6 bg-gray-50 ">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-3xl font-bold">Content Management</h1>
         <button
@@ -119,10 +119,10 @@ const ContentManagement = () => {
       )}
 
       {!isLoading && blogs.length > 0 && (
-        <div className="overflow-x-auto rounded shadow">
-          <table className="table w-full">
-            <thead>
-              <tr>
+        <div className="overflow-x-auto rounded-lg shadow-xl">
+          <table className="table w-full ">
+            <thead className="bg-red-600 text-white">
+              <tr >
                 <th>Title</th>
                 <th>Status</th>
                 <th>Created At</th>
@@ -130,8 +130,12 @@ const ContentManagement = () => {
               </tr>
             </thead>
             <tbody>
-              {blogs.map((blog) => (
-                <tr key={blog._id}>
+              {blogs.map((blog,index) => (
+                <tr key={blog._id}
+                
+                className={` hover:bg-red-50 ${
+                  index % 2 === 0 ? "bg-white" : "bg-red-50/40"
+                }`}>
                   <td className="font-semibold">{blog.title}</td>
                   <td
                     className={`capitalize font-semibold ${
@@ -179,7 +183,7 @@ const ContentManagement = () => {
 
           {/* Pagination */}
 
-          <div className="mt-4 flex justify-center items-center space-x-2 flex-wrap">
+          <div className="mt-4 flex justify-center items-center space-x-2 flex-wrap mb-4">
             <button
               className="btn btn-sm btn-outline"
               disabled={page === 0}
@@ -192,7 +196,7 @@ const ContentManagement = () => {
               <button
                 key={pageIndex}
                 className={`btn btn-sm ${
-                  pageIndex === page ? "btn-primary" : "btn-outline"
+                  pageIndex === page ? "btn bg-red-600 text-white hover:bg-red-800" : "btn-outline"
                 }`}
                 onClick={() => setPage(pageIndex)}
               >

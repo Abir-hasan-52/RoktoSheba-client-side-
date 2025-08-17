@@ -200,7 +200,7 @@ const AllDonation = () => {
     );
 
   return (
-    <div className="p-6">
+    <div className="p-6 bg-gray-50">
       <h2 className="text-3xl font-bold text-center mb-6 text-[#be123c]">
         All Blood Donation Requests
       </h2>
@@ -227,9 +227,9 @@ const AllDonation = () => {
       {donations.length === 0 ? (
         <p className="text-center text-gray-500">No donation requests found.</p>
       ) : (
-        <div className="overflow-x-auto shadow rounded-lg bg-white">
+        <div className="overflow-x-auto shadow-xl rounded-lg bg-white">
           <table className="table w-full">
-            <thead className="bg-gray-100 text-gray-700 uppercase text-sm">
+            <thead className="bg-red-600 text-white uppercase text-sm">
               <tr>
                 <th>Recipient</th>
                 <th>Blood Group</th>
@@ -240,8 +240,12 @@ const AllDonation = () => {
               </tr>
             </thead>
             <tbody>
-              {donations.map((donation) => (
-                <tr key={donation._id}>
+              {donations.map((donation,index) => (
+                <tr key={donation._id}
+                className={`  hover:bg-red-50 ${
+                  index % 2 === 0 ? "bg-white" : "bg-red-50/40"
+                }`}
+                >
                   <td>{donation.recipientName}</td>
                   <td>{donation.bloodGroup}</td>
                   <td>
