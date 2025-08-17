@@ -10,7 +10,7 @@ const Welcome = ({ users = {}, customMessage }) => {
   // const {user}=useAuth();
 
   return (
-    <div className="bg-gradient-to-r from-red-100 to-pink-100 p-6 rounded-xl shadow-md mb-6">
+    <div className="bg-gradient-to-r from-red-100 to-pink-100 p-6 rounded-xl shadow-md mb-6 px-4">
       <div className="flex items-center space-x-4">
         <div className="w-16 h-16 rounded-full overflow-hidden">
           <img

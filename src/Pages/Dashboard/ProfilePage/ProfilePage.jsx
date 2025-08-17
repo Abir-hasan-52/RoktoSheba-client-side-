@@ -150,7 +150,7 @@ const ProfilePage = () => {
         <button
           onClick={() => setIsEditing((prev) => !prev)}
           className={`btn btn-sm ${
-            isEditing ? "btn-outline btn-error" : "btn-primary"
+            isEditing ? "btn-outline btn-error" : "btn bg-red-600 hover:bg-red-800 text-white"
           }`}
         >
           {isEditing ? "Cancel" : "Edit"}

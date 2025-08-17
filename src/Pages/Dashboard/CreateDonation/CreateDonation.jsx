@@ -92,197 +92,206 @@ const CreateDonation = () => {
   if (isLoading) return <RoktoLoading/>;
 
   return (
-    <div className="max-w-3xl mx-auto p-4 md:p-6 bg-white rounded-lg shadow">
-      <h2 className="text-2xl font-bold mb-6 text-center">
-        Create Donation Request
-      </h2>
+  <div className="min-h-screen bg-gray-50 py-10">
+  <div className="max-w-5xl mx-auto p-6 md:p-10 rounded-xl shadow bg-white">
+    <h2 className="text-3xl font-bold mb-8 text-center text-red-800">
+      🩸 Create Donation Request
+    </h2>
 
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="grid grid-cols-1 md:grid-cols-2 gap-4"
-      >
-        {/* Requester Info (Read-only) */}
-        <div>
-          <label className="block mb-1 font-semibold">Requester Name</label>
-          <input
-            type="text"
-            value={user?.displayName}
-            disabled
-            className="input input-bordered w-full"
-          />
-        </div>
-        <div>
-          <label className="block mb-1 font-semibold">Requester Email</label>
-          <input
-            type="email"
-            value={user?.email}
-            disabled
-            className="input input-bordered w-full"
-          />
-        </div>
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="grid grid-cols-1 md:grid-cols-2 gap-6"
+    >
+      {/* Requester Info (Read-only) */}
+      <div>
+        <label className="block mb-1 font-semibold">Requester Name</label>
+        <input
+          type="text"
+          value={user?.displayName}
+          disabled
+          className="input input-bordered w-full"
+        />
+      </div>
+      <div>
+        <label className="block mb-1 font-semibold">Requester Email</label>
+        <input
+          type="email"
+          value={user?.email}
+          disabled
+          className="input input-bordered w-full"
+        />
+      </div>
 
-        {/* Recipient Info */}
-        <div>
-          <label className="block mb-1 font-semibold">Recipient Name</label>
-          <input
-            type="text"
-            {...register("recipientName", {
-              required: "Recipient name is required",
-            })}
-            className="input input-bordered w-full"
-          />
-          {errors.recipientName && (
-            <p className="text-red-500 text-sm">
-              {errors.recipientName.message}
-            </p>
-          )}
-        </div>
+      {/* Recipient Info */}
+      <div>
+        <label className="block mb-1 font-semibold">Recipient Name</label>
+        <input
+          type="text"
+          {...register("recipientName", {
+            required: "Recipient name is required",
+          })}
+          className="input input-bordered w-full"
+        />
+        {errors.recipientName && (
+          <p className="text-red-500 text-sm mt-1">
+            {errors.recipientName.message}
+          </p>
+        )}
+      </div>
 
-        <div>
-          <label className="block mb-1 font-semibold">District</label>
-          <select
-            {...register("recipientDistrict", {
-              required: "Select a district",
-            })}
-            onChange={(e) => setSelectedDistrict(e.target.value)}
-            className="select select-bordered w-full"
-          >
-            <option value="">-- Select District --</option>
-            {districts.map((d) => (
-              <option key={d.id} value={d.id}>
-                {d.name}
-              </option>
-            ))}
-          </select>
-          {errors.recipientDistrict && (
-            <p className="text-red-500 text-sm">
-              {errors.recipientDistrict.message}
-            </p>
-          )}
-        </div>
+      <div>
+        <label className="block mb-1 font-semibold">District</label>
+        <select
+          {...register("recipientDistrict", {
+            required: "Select a district",
+          })}
+          onChange={(e) => setSelectedDistrict(e.target.value)}
+          className="select select-bordered w-full"
+        >
+          <option value="">-- Select District --</option>
+          {districts.map((d) => (
+            <option key={d.id} value={d.id}>
+              {d.name}
+            </option>
+          ))}
+        </select>
+        {errors.recipientDistrict && (
+          <p className="text-red-500 text-sm mt-1">
+            {errors.recipientDistrict.message}
+          </p>
+        )}
+      </div>
 
-        <div>
-          <label className="block mb-1 font-semibold">Upazila</label>
-          <select
-            {...register("recipientUpazila", { required: "Select an upazila" })}
-            className="select select-bordered w-full"
-          >
-            <option value="">-- Select Upazila --</option>
-            {filteredUpazilas.map((u) => (
-              <option key={u.id} value={u.name}>
-                {u.name}
-              </option>
-            ))}
-          </select>
-          {errors.recipientUpazila && (
-            <p className="text-red-500 text-sm">
-              {errors.recipientUpazila.message}
-            </p>
-          )}
-        </div>
+      <div>
+        <label className="block mb-1 font-semibold">Upazila</label>
+        <select
+          {...register("recipientUpazila", { required: "Select an upazila" })}
+          className="select select-bordered w-full"
+        >
+          <option value="">-- Select Upazila --</option>
+          {filteredUpazilas.map((u) => (
+            <option key={u.id} value={u.name}>
+              {u.name}
+            </option>
+          ))}
+        </select>
+        {errors.recipientUpazila && (
+          <p className="text-red-500 text-sm mt-1">
+            {errors.recipientUpazila.message}
+          </p>
+        )}
+      </div>
 
-        <div className="md:col-span-2">
-          <label className="block mb-1 font-semibold">Hospital Name</label>
-          <input
-            type="text"
-            {...register("hospitalName", {
-              required: "Hospital name is required",
-            })}
-            className="input input-bordered w-full"
-          />
-          {errors.hospitalName && (
-            <p className="text-red-500 text-sm">
-              {errors.hospitalName.message}
-            </p>
-          )}
-        </div>
+      {/* Full-width fields */}
+      <div className="md:col-span-2">
+        <label className="block mb-1 font-semibold">Hospital Name</label>
+        <input
+          type="text"
+          {...register("hospitalName", {
+            required: "Hospital name is required",
+          })}
+          className="input input-bordered w-full"
+        />
+        {errors.hospitalName && (
+          <p className="text-red-500 text-sm mt-1">
+            {errors.hospitalName.message}
+          </p>
+        )}
+      </div>
 
-        <div className="md:col-span-2">
-          <label className="block mb-1 font-semibold">Full Address</label>
-          <input
-            type="text"
-            {...register("fullAddress", {
-              required: "Full address is required",
-            })}
-            className="input input-bordered w-full"
-          />
-          {errors.fullAddress && (
-            <p className="text-red-500 text-sm">{errors.fullAddress.message}</p>
-          )}
-        </div>
+      <div className="md:col-span-2">
+        <label className="block mb-1 font-semibold">Full Address</label>
+        <input
+          type="text"
+          {...register("fullAddress", {
+            required: "Full address is required",
+          })}
+          className="input input-bordered w-full"
+        />
+        {errors.fullAddress && (
+          <p className="text-red-500 text-sm mt-1">
+            {errors.fullAddress.message}
+          </p>
+        )}
+      </div>
 
-        <div>
-          <label className="block mb-1 font-semibold">Blood Group</label>
-          <select
-            {...register("bloodGroup", { required: "Select blood group" })}
-            className="select select-bordered w-full"
-          >
-            <option value="">-- Select --</option>
-            <option value="A+">A+</option>
-            <option value="A-">A-</option>
-            <option value="B+">B+</option>
-            <option value="B-">B-</option>
-            <option value="AB+">AB+</option>
-            <option value="AB-">AB-</option>
-            <option value="O+">O+</option>
-            <option value="O-">O-</option>
-          </select>
-          {errors.bloodGroup && (
-            <p className="text-red-500 text-sm">{errors.bloodGroup.message}</p>
-          )}
-        </div>
+      <div>
+        <label className="block mb-1 font-semibold">Blood Group</label>
+        <select
+          {...register("bloodGroup", { required: "Select blood group" })}
+          className="select select-bordered w-full"
+        >
+          <option value="">-- Select --</option>
+          <option value="A+">A+</option>
+          <option value="A-">A-</option>
+          <option value="B+">B+</option>
+          <option value="B-">B-</option>
+          <option value="AB+">AB+</option>
+          <option value="AB-">AB-</option>
+          <option value="O+">O+</option>
+          <option value="O-">O-</option>
+        </select>
+        {errors.bloodGroup && (
+          <p className="text-red-500 text-sm mt-1">
+            {errors.bloodGroup.message}
+          </p>
+        )}
+      </div>
 
-        <div>
-          <label className="block mb-1 font-semibold">Donation Date</label>
-          <input
-            type="date"
-            {...register("donationDate", { required: "Date is required" })}
-            className="input input-bordered w-full"
-          />
-          {errors.donationDate && (
-            <p className="text-red-500 text-sm">
-              {errors.donationDate.message}
-            </p>
-          )}
-        </div>
+      <div>
+        <label className="block mb-1 font-semibold">Donation Date</label>
+        <input
+          type="date"
+          {...register("donationDate", { required: "Date is required" })}
+          className="input input-bordered w-full"
+        />
+        {errors.donationDate && (
+          <p className="text-red-500 text-sm mt-1">
+            {errors.donationDate.message}
+          </p>
+        )}
+      </div>
 
-        <div>
-          <label className="block mb-1 font-semibold">Donation Time</label>
-          <input
-            type="time"
-            {...register("donationTime", { required: "Time is required" })}
-            className="input input-bordered w-full"
-          />
-          {errors.donationTime && (
-            <p className="text-red-500 text-sm">
-              {errors.donationTime.message}
-            </p>
-          )}
-        </div>
+      <div>
+        <label className="block mb-1 font-semibold">Donation Time</label>
+        <input
+          type="time"
+          {...register("donationTime", { required: "Time is required" })}
+          className="input input-bordered w-full"
+        />
+        {errors.donationTime && (
+          <p className="text-red-500 text-sm mt-1">
+            {errors.donationTime.message}
+          </p>
+        )}
+      </div>
 
-        <div className="md:col-span-2">
-          <label className="block mb-1 font-semibold">Request Message</label>
-          <textarea
-            {...register("requestMessage", {
-              required: "Request message is required",
-            })}
-            className="textarea textarea-bordered w-full"
-            rows={4}
-          />
-          {errors.requestMessage && (
-            <p className="text-red-500 text-sm">
-              {errors.requestMessage.message}
-            </p>
-          )}
-        </div>
+      <div className="md:col-span-2">
+        <label className="block mb-1 font-semibold">Request Message</label>
+        <textarea
+          {...register("requestMessage", {
+            required: "Request message is required",
+          })}
+          className="textarea textarea-bordered w-full"
+          rows={4}
+        />
+        {errors.requestMessage && (
+          <p className="text-red-500 text-sm mt-1">
+            {errors.requestMessage.message}
+          </p>
+        )}
+      </div>
 
-        <div className="md:col-span-2 text-right">
-          <button type="submit" className="btn btn-primary w-full">
-            Submit Donation Request
-          </button>
-        </div>
-      </form>
-    </div>
+      {/* Submit button full width */}
+      <div className="md:col-span-2">
+        <button type="submit" className="btn bg-red-600 hover:bg-red-800 text-white w-full">
+          Submit Donation Request
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
   );
 };
 

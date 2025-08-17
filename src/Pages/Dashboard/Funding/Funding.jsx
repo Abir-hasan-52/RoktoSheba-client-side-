@@ -50,21 +50,23 @@ const Funding = () => {
 
   return (
     <div className="p-4 sm:p-6 space-y-6">
+      {/* Header */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-        <h2 className=" text-2xl font-bold text-rose-600 mb-4 ">
+        <h2 className="text-2xl font-bold text-red-700 mb-4">
           💸 Funding History
         </h2>
         <Button
           onClick={handleGiveFund}
-          className="flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md"
+          className="flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg shadow-md transition"
         >
           <FaDonate /> Give Fund
         </Button>
       </div>
 
-      <div className="overflow-x-auto border rounded-lg">
+      {/* Table */}
+      <div className="overflow-x-auto border-x border-red-200  rounded-lg shadow-sm">
         <table className="min-w-full text-left text-sm">
-          <thead className="bg-rose-100 text-rose-700">
+          <thead className="bg-rose-600 text-white uppercase tracking-wide text-xs">
             <tr>
               <th className="p-3">#</th>
               <th className="p-3">Avatar</th>
@@ -75,9 +77,12 @@ const Funding = () => {
           </thead>
           <tbody>
             {fundings.map((fund, i) => (
-              <tr key={fund._id || i} className="border-b hover:bg-gray-50">
-                {/* Serial Number */}
-                <td className="p-3 font-medium">
+              <tr
+                key={fund._id || i}
+                className="border-b hover:bg-rose-50 transition"
+              >
+                {/* Serial */}
+                <td className="p-3 font-medium text-gray-700">
                   {(currentPage - 1) * ITEMS_PER_PAGE + i + 1}
                 </td>
 
@@ -95,16 +100,18 @@ const Funding = () => {
                 </td>
 
                 {/* Name */}
-                <td className="p-3">{fund.userName || "Unknown"}</td>
+                <td className="p-3 text-gray-800">
+                  {fund.userName || "Unknown"}
+                </td>
 
                 {/* Amount */}
-                <td className="p-3 flex items-center gap-1 text-green-600 font-medium">
+                <td className="p-3 flex items-center gap-1 text-green-600 font-semibold">
                   <FaDollarSign className="text-sm" />
                   {parseFloat(fund.amount).toFixed(2)}
                 </td>
 
                 {/* Date */}
-                <td className="p-3">
+                <td className="p-3 text-gray-600">
                   {new Date(fund.date).toLocaleDateString("en-GB")}
                 </td>
               </tr>
@@ -116,7 +123,7 @@ const Funding = () => {
       {/* Pagination */}
       <div className="flex justify-center items-center gap-2 mt-4 flex-wrap">
         <button
-          className="px-3 py-1 rounded-md bg-gray-200 hover:bg-gray-300 disabled:opacity-50"
+          className="px-3 py-1 rounded-md bg-gray-100 hover:bg-gray-200 disabled:opacity-50"
           onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
           disabled={currentPage === 1}
         >
@@ -128,8 +135,8 @@ const Funding = () => {
             key={i}
             className={`px-3 py-1 rounded-md transition ${
               i + 1 === currentPage
-                ? "bg-red-600 text-white"
-                : "bg-gray-200 hover:bg-gray-300"
+                ? "bg-red-600 text-white shadow-sm"
+                : "bg-gray-100 hover:bg-gray-200 text-gray-700"
             }`}
             onClick={() => setCurrentPage(i + 1)}
           >
@@ -138,7 +145,7 @@ const Funding = () => {
         ))}
 
         <button
-          className="px-3 py-1 rounded-md bg-gray-200 hover:bg-gray-300 disabled:opacity-50"
+          className="px-3 py-1 rounded-md bg-gray-100 hover:bg-gray-200 disabled:opacity-50"
           onClick={() =>
             setCurrentPage((prev) => Math.min(prev + 1, totalPages))
           }

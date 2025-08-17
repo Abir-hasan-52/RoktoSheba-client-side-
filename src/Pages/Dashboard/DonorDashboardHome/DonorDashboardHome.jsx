@@ -40,12 +40,13 @@ const DonorDashboardHome = () => {
       />
 
       {donationRequests.length > 0 && (
-        <div className="overflow-x-auto rounded-lg border shadow-sm">
+        <div className="overflow-x-auto px-4 rounded-2xl shadow-lg border border-red-100">
           <h2 className="text-xl font-semibold p-4 text-[#be123c]">
             Your Recent Donation Requests
           </h2>
-          <table className="min-w-full text-sm">
-            <thead className="bg-gray-100">
+
+          <table className="min-w-full text-sm rounded-md border-x border-red-200 ">
+            <thead className="bg-gradient-to-r from-red-600 to-red-500 text-white">
               <tr className="text-left">
                 <th className="p-3">Recipient</th>
                 <th className="p-3">Location</th>
@@ -57,23 +58,46 @@ const DonorDashboardHome = () => {
               </tr>
             </thead>
             <tbody>
-              {recentRequests.map((req) => (
-                <tr key={req._id} className="border-b hover:bg-gray-50">
-                  <td className="p-3">{req.recipientName}</td>
-                  <td className="p-3">
+              {recentRequests.map((req, index) => (
+                <tr
+                  key={req._id}
+                  className={`border-b transition-colors ${
+                    index % 2 === 0 ? "bg-white" : "bg-red-50/50"
+                  } hover:bg-red-100/30`}
+                >
+                  <td className="p-3 font-medium">{req.recipientName}</td>
+                  <td className="p-3 text-gray-700">
                     {req.recipientDistrict}, {req.recipientUpazila}
                   </td>
                   <td className="p-3">
                     {new Date(req.donationDate).toLocaleDateString("en-GB")}
                   </td>
                   <td className="p-3">{req.donationTime}</td>
-                  <td className="p-3">{req.bloodGroup}</td>
-                  <td className="p-3 capitalize">{req.status}</td>
-                  <td className="p-3 space-x-2 flex items-center flex-wrap gap-1">
+                  <td className="p-3 font-semibold text-red-700">
+                    {req.bloodGroup}
+                  </td>
+
+                  {/* Status Badge */}
+                  <td className="p-3">
+                    <span
+                      className={`px-3 py-1 rounded-full text-xs font-semibold ${
+                        req.status === "done"
+                          ? "bg-green-100 text-green-700"
+                          : req.status === "canceled"
+                          ? "bg-gray-200 text-gray-600"
+                          : "bg-yellow-100 text-yellow-700"
+                      }`}
+                    >
+                      {req.status}
+                    </span>
+                  </td>
+
+                  {/* Actions */}
+                  <td className="p-3 flex items-center gap-3 text-lg">
                     {/* View */}
                     <Link
                       to={`/dashboard/donation-details/${req._id}`}
-                      className="text-blue-500"
+                      className="text-blue-500 hover:text-blue-700"
                     >
                       <FaEye />
                     </Link>
@@ -81,7 +105,7 @@ const DonorDashboardHome = () => {
                     {/* Edit */}
                     <Link
                       to={`/dashboard/editDonation/${req._id}`}
-                      className="text-yellow-500"
+                      className="text-yellow-500 hover:text-yellow-700"
                     >
                       <FaEdit />
                     </Link>
@@ -89,18 +113,17 @@ const DonorDashboardHome = () => {
                     {/* Delete */}
                     <button
                       onClick={() => handleDelete(req._id)}
-                      className="text-red-500"
+                      className="text-red-500 hover:text-red-700"
                     >
                       <FaTrash />
                     </button>
 
                     {/* Status Control */}
-
                     {req.status === "inprogress" && (
                       <>
                         <button
                           onClick={() => handleStatusUpdate(req._id, "done")}
-                          className="text-green-600"
+                          className="text-green-600 hover:text-green-800"
                         >
                           <FaCheckCircle />
                         </button>
@@ -108,7 +131,7 @@ const DonorDashboardHome = () => {
                           onClick={() =>
                             handleStatusUpdate(req._id, "canceled")
                           }
-                          className="text-gray-500"
+                          className="text-gray-500 hover:text-gray-700"
                         >
                           <FaTimesCircle />
                         </button>
@@ -119,12 +142,12 @@ const DonorDashboardHome = () => {
               ))}
             </tbody>
           </table>
-          <div className="p-4 text-center">
-            <Link
-              to="/dashboard/myDonation"
-              className="text-[#be123c] underline"
-            >
-              View My All Requests
+
+          <div className="p-4 text-center ">
+            <Link to="/dashboard/myDonation">
+              <button className="btn  bg-red-600 hover:bg-red-800 text-white py-2 px-4 rounded-xl">
+                View My All Requests
+              </button>
             </Link>
           </div>
         </div>

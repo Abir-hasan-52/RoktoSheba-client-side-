@@ -89,7 +89,7 @@ const MyDonations = () => {
     );
 
   return (
-    <div className="px-4 md:px-10 lg:px-20 py-10">
+    <div className="px-4 md:px-10 lg:px-20 py-10 bg-gray-50 min-h-screen">
       <h2 className="text-2xl font-bold text-center mb-4 text-[#be123c]">
         My Donation Requests
       </h2>
@@ -114,13 +114,13 @@ const MyDonations = () => {
       </p>
 
       {donations.length === 0 ? (
-        <p className="text-center text-gray-500">No donation requests found.</p>
+        <p className="text-center text-red-500">No donation requests found.</p>
       ) : (
         <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
           {donations.map((donation) => (
             <div
               key={donation._id}
-              className="border rounded-2xl p-6 shadow-lg bg-white hover:shadow-xl transition flex flex-col justify-between"
+              className=" rounded-2xl p-6 shadow-lg bg-white hover:shadow-xl transition flex flex-col justify-between"
             >
               <div>
                 <h3 className="text-lg font-semibold mb-2 text-[#be123c]">
