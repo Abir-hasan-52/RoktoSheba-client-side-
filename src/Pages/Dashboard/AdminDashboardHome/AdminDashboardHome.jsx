@@ -5,6 +5,7 @@ import Welcome from "../../Shared/Welcome/Welcome";
 import useAxios from "../../../Hooks/useAxios";
 import useUserRole from "../../../Hooks/useUserRole";
 import RoktoLoading from "../../Shared/RoktoLoading/RoktoLoading";
+import DashboardCharts from "./DashboardCharts";
 
 const AdminDashboardHome = () => {
   const { user } = useAuth();
@@ -95,44 +96,48 @@ const AdminDashboardHome = () => {
 
   return (
     <div className="p-4 space-y-6">
-      <Welcome
-        users={{ displayName: user?.displayName, role: role }}
-        customMessage={getRoleMessage(role)}
-      />
+    <Welcome
+      users={{ displayName: user?.displayName, role: role }}
+      customMessage={getRoleMessage(role)}
+    />
 
-      <h2 className="text-2xl font-bold text-gray-800">
-        📊 Admin Dashboard Overview
-      </h2>
+    <h2 className="text-2xl font-bold text-gray-800">
+      📊 Admin Dashboard Overview
+    </h2>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {cardData.map((card, idx) => (
-          <div
-            key={idx}
-            className={`rounded-xl p-6 shadow-sm hover:shadow-md transition duration-300 ${card.bg}`}
-          >
-            <div className="flex items-center gap-4">
-              {card.icon}
-              <div>
-                <p className="text-lg font-semibold text-gray-700">
-                  {card.title}
-                </p>
-                <p className="text-2xl font-bold text-gray-900">{card.count}</p>
-                <p className="text-sm mt-1 text-gray-500">
-                  <span
-                    className={`font-medium ${
-                      card.change >= 0 ? "text-green-600" : "text-red-600"
-                    }`}
-                  >
-                    {card.change >= 0 ? "▲" : "▼"} {Math.abs(card.change)}%
-                  </span>{" "}
-                  from last month
-                </p>
-              </div>
+    {/* Cards */}
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {cardData.map((card, idx) => (
+        <div
+          key={idx}
+          className={`rounded-xl p-6 shadow-sm hover:shadow-md transition duration-300 ${card.bg}`}
+        >
+          <div className="flex items-center gap-4">
+            {card.icon}
+            <div>
+              <p className="text-lg font-semibold text-gray-700">
+                {card.title}
+              </p>
+              <p className="text-2xl font-bold text-gray-900">{card.count}</p>
+              <p className="text-sm mt-1 text-gray-500">
+                <span
+                  className={`font-medium ${
+                    card.change >= 0 ? "text-green-600" : "text-red-600"
+                  }`}
+                >
+                  {card.change >= 0 ? "▲" : "▼"} {Math.abs(card.change)}%
+                </span>{" "}
+                from last month
+              </p>
             </div>
           </div>
-        ))}
-      </div>
+        </div>
+      ))}
     </div>
+
+    {/* Charts */}
+    <DashboardCharts stats={stats} />
+  </div>
   );
 };
 
