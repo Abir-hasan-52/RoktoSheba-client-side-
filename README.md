@@ -147,24 +147,135 @@ npm run dev
 ## 📁 Project Structure
 
 ```
-roktosheba-client/
-├── src/
-│   ├── components/          # Reusable UI components
-│   ├── pages/              # Application pages
-│   ├── hooks/              # Custom React hooks
-│   ├── context/            # React context providers
-│   ├── utils/              # Helper functions
-│   └── assets/             # Static assets
-├── public/                 # Public assets
-└── package.json
-
-roktosheba-server/
-├── controllers/            # Route controllers
-├── models/                # MongoDB models
-├── routes/                # API routes
-├── middleware/            # Custom middleware
-├── utils/                 # Helper functions
-└── server.js              # Main server file
+├── .firebase
+    └── hosting.ZGlzdA.cache
+├── .firebaserc
+├── .gitignore
+├── README.md
+├── eslint.config.js
+├── firebase.json
+├── index.html
+├── package-lock.json
+├── package.json
+├── public
+    ├── Rokto_Sheba_logo.svg
+    ├── districts.json
+    ├── upazilas.json
+    └── vite.svg
+├── src
+    ├── App.css
+    ├── App.jsx
+    ├── Contexts
+    │   ├── AuthContext.jsx
+    │   └── AuthProvider.jsx
+    ├── Firebase
+    │   └── firebase.init.js
+    ├── Hooks
+    │   ├── useAuth.jsx
+    │   ├── useAxios.jsx
+    │   ├── useAxiosSecure.jsx
+    │   └── useUserRole.jsx
+    ├── Layouts
+    │   ├── AuthLayout.jsx
+    │   ├── DashboardLayOut.jsx
+    │   └── MainLayout.jsx
+    ├── Pages
+    │   ├── About
+    │   │   └── About.jsx
+    │   ├── Blog
+    │   │   ├── Blog.jsx
+    │   │   └── BlogDetails.jsx
+    │   ├── Dashboard
+    │   │   ├── AddBlog
+    │   │   │   └── AddBlog.jsx
+    │   │   ├── AdminDashboardHome
+    │   │   │   ├── AdminDashboardHome.jsx
+    │   │   │   └── DashboardCharts.jsx
+    │   │   ├── AllDonation
+    │   │   │   └── AllDonation.jsx
+    │   │   ├── AllUsers
+    │   │   │   └── AllUsers.jsx
+    │   │   ├── ContentManagement
+    │   │   │   └── ContentManagement.jsx
+    │   │   ├── CreateDonation
+    │   │   │   └── CreateDonation.jsx
+    │   │   ├── DashboardHome
+    │   │   │   └── DashboardHome.jsx
+    │   │   ├── DonationDetails
+    │   │   │   └── DonationDetails.jsx
+    │   │   ├── DonorDashboardHome
+    │   │   │   └── DonorDashboardHome.jsx
+    │   │   ├── EditDonation
+    │   │   │   └── EditDonation.jsx
+    │   │   ├── Funding
+    │   │   │   ├── Funding.jsx
+    │   │   │   ├── GiveFundingForm.jsx
+    │   │   │   └── MainFunding.jsx
+    │   │   ├── MyDonation
+    │   │   │   └── MyDonation.jsx
+    │   │   └── ProfilePage
+    │   │   │   └── ProfilePage.jsx
+    │   ├── DonationRequests
+    │   │   ├── DonationRequestDetails.jsx
+    │   │   └── DonationRequests.jsx
+    │   ├── Forbidden
+    │   │   └── Forbidden.jsx
+    │   ├── Home
+    │   │   ├── Banner
+    │   │   │   └── Banner.jsx
+    │   │   ├── BloodCompatibilityTable
+    │   │   │   └── BloodCompatibilityTable.jsx
+    │   │   ├── ContactUs
+    │   │   │   └── ContactUs.jsx
+    │   │   ├── DonationProcess
+    │   │   │   └── DonationProcess.jsx
+    │   │   ├── DonationRequestsPreview
+    │   │   │   └── DonationRequestsPreview.jsx
+    │   │   ├── FAQsSection
+    │   │   │   └── FAQsSection.jsx
+    │   │   ├── FeatureSection
+    │   │   │   └── FeatureSection.jsx
+    │   │   ├── Home
+    │   │   │   ├── Home.jsx
+    │   │   │   ├── Testimonials
+    │   │   │   │   └── Testimonials.jsx
+    │   │   │   └── TopDonors
+    │   │   │   │   └── TopDonors.jsx
+    │   │   └── StatsSection
+    │   │   │   └── StatsSection.jsx
+    │   ├── Login
+    │   │   └── Login.jsx
+    │   ├── Register
+    │   │   └── Register.jsx
+    │   ├── SearchPage
+    │   │   └── SearchPage.jsx
+    │   └── Shared
+    │   │   ├── BloodLoading
+    │   │       └── BloodLoading.jsx
+    │   │   ├── Button
+    │   │       └── Button.jsx
+    │   │   ├── Footer
+    │   │       └── Footer.jsx
+    │   │   ├── Navbar
+    │   │       └── Navbar.jsx
+    │   │   ├── RoktoLoading
+    │   │       └── RoktoLoading.jsx
+    │   │   ├── RoktoShebaLogo.jsx
+    │   │   └── Welcome
+    │   │       └── Welcome.jsx
+    ├── assets
+    │   ├── AuthLogo.png
+    │   ├── Rokto Sheba logo.png
+    │   ├── Rokto Sheba logo.svg
+    │   └── react.svg
+    ├── index.css
+    ├── main.jsx
+    ├── route
+    │   ├── PrivateRoleRoute.jsx
+    │   └── PrivateRoute.jsx
+    └── router
+    │   └── router.jsx
+└── vite.config.js
 ```
 
 ---
